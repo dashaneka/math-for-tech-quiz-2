@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Complete beginner-friendly notes on derivatives, antiderivatives, indefinite integrals, definite integrals, substitution, and integration by parts.">
+  <title>Integration &amp; Derivatives · Complete Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f5f2eb;
+      --surface: #fffdf9;
+      --soft: #f2eee5;
+      --ink: #1e2520;
+      --body: #525b54;
+      --muted: #858b85;
+      --line: #e4ded2;
+      --green: #245f4a;
+      --green-soft: #e5efe9;
+      --red: #b22f48;
+      --red-soft: #f8e9ec;
+      --amber: #b76c2d;
+      --amber-soft: #fbefe3;
+      --dark: #202723;
+      --shadow: 0 22px 70px rgba(38, 40, 34, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 28px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 6% 2%, rgba(36, 95, 74, 0.08), transparent 28rem),
+        var(--paper);
+      font-family: "DM Sans", sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      width: min(1260px, calc(100% - 56px));
+      min-height: 100vh;
+      margin: 28px auto;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 38px 30px;
+      background: var(--soft);
+      border-right: 1px solid var(--line);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 38px;
+      font-family: "Newsreader", serif;
+      font-size: 23px;
+      font-weight: 600;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      color: #fff;
+      background: var(--green);
+      border-radius: 11px 11px 11px 3px;
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    .nav-group { margin: 25px 0; }
+    .nav-label {
+      margin: 0 0 8px 12px;
+      color: #a3a49f;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav-link {
+      display: block;
+      margin: 2px 0;
+      padding: 7px 11px;
+      color: #747a74;
+      border-radius: 8px;
+      font-size: 12.5px;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: 150ms ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--green);
+      background: rgba(36, 95, 74, 0.08);
+    }
+
+    .side-actions {
+      display: grid;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    .side-button {
+      padding: 9px 11px;
+      color: var(--green);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(36,95,74,0.15);
+      border-radius: 9px;
+      cursor: pointer;
+      font-size: 11px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    main { min-width: 0; padding-bottom: 80px; }
+
+    .hero {
+      position: relative;
+      padding: 72px 70px 56px;
+      background: linear-gradient(180deg, #fcfaf5, var(--surface));
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "∫";
+      position: absolute;
+      top: -90px;
+      right: 34px;
+      color: rgba(36, 95, 74, 0.055);
+      font-family: Georgia, serif;
+      font-size: 330px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 16px;
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      background: var(--green);
+    }
+
+    h1, h2 {
+      font-family: "Newsreader", Georgia, serif;
+      letter-spacing: -0.035em;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0;
+      font-size: clamp(48px, 6vw, 72px);
+      font-weight: 600;
+      line-height: 0.98;
+    }
+
+    h1 em { color: var(--green); font-weight: 600; }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 620px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .learning-path {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .path-item {
+      padding: 7px 11px;
+      color: var(--green);
+      background: var(--green-soft);
+      border-radius: 7px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .path-arrow { color: #aaa; font-size: 12px; }
+
+    .content {
+      max-width: 930px;
+      padding: 52px 70px 0;
+    }
+
+    section { margin-bottom: 72px; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 15px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .section-number {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      color: var(--green);
+      background: var(--green-soft);
+      border-radius: 13px;
+      font-family: "DM Mono", monospace;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 35px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .section-subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      margin: 15px 0;
+      padding: 28px 30px;
+      background: #fcfbf8;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      box-shadow: 0 7px 22px rgba(42, 42, 36, 0.025);
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .card h3::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: var(--amber);
+      border-radius: 50%;
+    }
+
+    .card p { margin: 8px 0; color: var(--body); }
+    strong { color: var(--ink); }
+
+    .concept-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .concept {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .concept.derivative { background: #f8ecee; }
+    .concept.integral { background: #eaf2ed; }
+
+    .concept small {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .concept p { margin: 7px 0 0; font-size: 13px; }
+
+    .formula {
+      margin: 13px 0;
+      padding: 18px 21px;
+      color: #f5f2e9;
+      background: var(--dark);
+      border-radius: 11px;
+      overflow-x: auto;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 21px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .formula small {
+      display: block;
+      margin-bottom: 4px;
+      color: #9fb0a7;
+      font-family: "DM Sans", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .formula sup, .formula sub,
+    .math-line sup, .math-line sub { font-size: 0.65em; }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    th {
+      color: #fff;
+      background: var(--dark);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    td { color: var(--body); }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { font-family: Georgia, serif; font-size: 16px; }
+
+    .memory {
+      margin: 16px 0;
+      padding: 17px 20px;
+      color: #4e574f;
+      background: var(--green-soft);
+      border-left: 4px solid var(--green);
+      border-radius: 4px 11px 11px 4px;
+      font-size: 13px;
+    }
+
+    .warning {
+      margin: 16px 0;
+      padding: 17px 20px;
+      color: #68452e;
+      background: var(--amber-soft);
+      border-left: 4px solid var(--amber);
+      border-radius: 4px 11px 11px 4px;
+      font-size: 13px;
+    }
+
+    .steps {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      min-height: 41px;
+      padding: 3px 0 15px 43px;
+      color: var(--body);
+      counter-increment: step;
+      font-size: 14px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: var(--green);
+      background: var(--green-soft);
+      border-radius: 50%;
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .worked {
+      margin: 17px 0;
+      padding: 23px 25px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .worked-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .worked-tag {
+      color: var(--red);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .worked-title {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .math-line {
+      padding: 8px 0;
+      color: #333b35;
+      border-bottom: 1px dashed var(--line);
+      font-family: Georgia, serif;
+      font-size: 18px;
+    }
+
+    .math-line:last-child { border-bottom: 0; }
+    .math-line.answer { color: var(--green); font-weight: 700; }
+
+    .label {
+      display: inline-block;
+      min-width: 76px;
+      color: var(--muted);
+      font-family: "DM Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .compare-card {
+      padding: 22px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .compare-card b {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--red);
+    }
+
+    .compare-card p { margin: 6px 0; font-size: 13px; }
+
+    .mistakes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .mistake {
+      padding: 17px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--body);
+      font-size: 12.5px;
+    }
+
+    .mistake b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--red);
+    }
+
+    .checklist { display: grid; gap: 4px; }
+    .check-row {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      padding: 8px;
+      color: var(--body);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .check-row:hover { background: #f3f0e9; }
+
+    .check-row input {
+      appearance: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      background: #fff;
+      border: 1.5px solid #adb1ab;
+      border-radius: 4px;
+    }
+
+    .check-row input:checked {
+      background: var(--green);
+      border-color: var(--green);
+      box-shadow: inset 0 0 0 3px #fff;
+    }
+
+    .check-row:has(input:checked) span {
+      color: #999d98;
+      text-decoration: line-through;
+    }
+
+    .resource-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .resource-links a {
+      padding: 8px 11px;
+      color: var(--green);
+      background: var(--green-soft);
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    footer {
+      margin-top: 65px;
+      padding-top: 22px;
+      color: #a1a39e;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        width: 100%;
+        margin: 0;
+        grid-template-columns: 1fr;
+        border: 0;
+        border-radius: 0;
+      }
+      .sidebar { display: none; }
+      .hero, .content { padding-right: 27px; padding-left: 27px; }
+      .concept-pair, .formula-grid, .compare, .mistakes { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { display: block; width: 100%; margin: 0; border: 0; box-shadow: none; }
+      .sidebar { display: none; }
+      .hero, .content { padding-right: 34px; padding-left: 34px; }
+      .hero::after { display: none; }
+      section, .card, .worked { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">∫</span>Integral Notes</div>
+
+      <nav>
+        <div class="nav-group">
+          <p class="nav-label">Foundation</p>
+          <a class="nav-link active" href="#relationship">Derivative vs integral</a>
+          <a class="nav-link" href="#derivatives">Derivative basics</a>
+          <a class="nav-link" href="#antiderivatives">Antiderivatives</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Integration</p>
+          <a class="nav-link" href="#types">Indefinite vs definite</a>
+          <a class="nav-link" href="#basic-integrals">Basic integrals</a>
+          <a class="nav-link" href="#substitution">Substitution &amp; du</a>
+          <a class="nav-link" href="#parts">Integration by parts</a>
+          <a class="nav-link" href="#definite">Definite integrals</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Review</p>
+          <a class="nav-link" href="#solved">All solved questions</a>
+          <a class="nav-link" href="#mistakes">Common mistakes</a>
+          <a class="nav-link" href="#formula-sheet">Formula sheet</a>
+          <a class="nav-link" href="#checklist">Ready checklist</a>
+        </div>
+      </nav>
+
+      <div class="side-actions">
+        <button class="side-button" type="button" onclick="window.print()">Print these notes</button>
+        <a class="side-button" href="question-1-integrals.html">Question 1 practice</a>
+        <a class="side-button" href="quiz-2-study-guide.html">Full Quiz 2 guide</a>
+      </div>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="eyebrow">Complete learning notes · Quiz 2</div>
+        <h1>Integration &amp; <em>derivatives</em>, from the beginning.</h1>
+        <p class="hero-copy">
+          Everything we learned together in one place: the meaning behind the symbols,
+          every essential formula, the exact solution methods, and every question we solved.
+        </p>
+        <div class="learning-path">
+          <span class="path-item">Derivative</span><span class="path-arrow">→</span>
+          <span class="path-item">Antiderivative</span><span class="path-arrow">→</span>
+          <span class="path-item">Integral</span><span class="path-arrow">→</span>
+          <span class="path-item">Substitution</span><span class="path-arrow">→</span>
+          <span class="path-item">Definite integral</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <section id="relationship">
+          <div class="section-head">
+            <div class="section-number">01</div>
+            <div>
+              <h2>Derivative and integration</h2>
+              <p class="section-subtitle">They are different operations, but they work in opposite directions.</p>
+            </div>
+          </div>
+
+          <div class="concept-pair">
+            <div class="concept derivative">
+              <small>Differentiation</small>
+              <div class="formula"><small>Power goes down</small>d/dx (x<sup>3</sup>) = 3x<sup>2</sup></div>
+              <p>Finds the rate of change or slope of a function.</p>
+            </div>
+            <div class="concept integral">
+              <small>Integration</small>
+              <div class="formula"><small>Power goes up</small>∫ 3x<sup>2</sup> dx = x<sup>3</sup> + C</div>
+              <p>Finds the original function from its derivative.</p>
+            </div>
+          </div>
+
+          <div class="memory">
+            <strong>Central idea:</strong> integration is reverse differentiation.
+            If differentiating \(x³\) gives \(3x²\), then integrating \(3x²\) gives \(x³+C\).
+          </div>
+
+          <div class="card">
+            <h3>Why differentiation appears in integration</h3>
+            <p>We use differentiation knowledge to recognize an antiderivative, to check an answer, and to find <strong>du</strong> during substitution.</p>
+            <div class="formula-grid">
+              <div class="formula"><small>Recognize</small>d/dx (x<sup>2</sup>) = 2x</div>
+              <div class="formula"><small>Reverse it</small>∫ 2x dx = x<sup>2</sup> + C</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="derivatives">
+          <div class="section-head">
+            <div class="section-number">02</div>
+            <div>
+              <h2>Derivative basics to remember</h2>
+              <p class="section-subtitle">These are enough for the integration skills covered in these notes.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Basic derivative rules</h3>
+            <table>
+              <thead><tr><th>Function</th><th>Derivative</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td>x<sup>n</sup></td><td>nx<sup>n−1</sup></td><td>Multiply by the power, then reduce it by 1.</td></tr>
+                <tr><td>c</td><td>0</td><td>The derivative of every constant is zero.</td></tr>
+                <tr><td>e<sup>x</sup></td><td>e<sup>x</sup></td><td>This special function stays the same.</td></tr>
+                <tr><td>e<sup>ax</sup></td><td>ae<sup>ax</sup></td><td>Multiply by the derivative of the exponent.</td></tr>
+                <tr><td>ln x</td><td>1/x</td><td>Valid for x &gt; 0.</td></tr>
+                <tr><td>sin x</td><td>cos x</td><td>Sine changes to cosine.</td></tr>
+                <tr><td>cos x</td><td>−sin x</td><td>Cosine changes to negative sine.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>The chain rule</h3>
+            <p>For a function inside another function, differentiate the outside and then multiply by the derivative of the inside.</p>
+            <div class="formula"><small>Chain rule</small>d/dx [f(g(x))] = f′(g(x)) · g′(x)</div>
+            <div class="worked">
+              <div class="worked-head">
+                <span class="worked-tag">Example</span>
+                <span class="worked-title">Checking an integral answer</span>
+              </div>
+              <div class="math-line">d/dx [(x² + 5)<sup>4</sup>/4]</div>
+              <div class="math-line"><span class="label">Outer</span>(1/4) · 4(x² + 5)<sup>3</sup></div>
+              <div class="math-line"><span class="label">Inner</span>multiply by d/dx(x² + 5) = 2x</div>
+              <div class="math-line answer">= 2x(x² + 5)<sup>3</sup></div>
+            </div>
+          </div>
+
+          <div class="warning">
+            \(2x\) is <strong>not equal</strong> to \(x²\). Instead, the derivative of \(x²\) is \(2x\), and the antiderivative of \(2x\) is \(x²+C\).
+          </div>
+        </section>
+
+        <section id="antiderivatives">
+          <div class="section-head">
+            <div class="section-number">03</div>
+            <div>
+              <h2>What is an antiderivative?</h2>
+              <p class="section-subtitle">A function whose derivative gives the original function.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>The question you ask</h3>
+            <p>To find the antiderivative of \(3x²\), ask: <strong>Which function produces \(3x²\) when differentiated?</strong></p>
+            <div class="formula-grid">
+              <div class="formula"><small>Derivative</small>d/dx (x<sup>3</sup>) = 3x<sup>2</sup></div>
+              <div class="formula"><small>Antiderivative</small>∫ 3x<sup>2</sup> dx = x<sup>3</sup> + C</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Why we add +C</h3>
+            <p>The derivatives of \(x³\), \(x³+4\), and \(x³−10\) are all \(3x²\), because constants disappear during differentiation.</p>
+            <div class="formula">d/dx (C) = 0 &nbsp;&nbsp;⇒&nbsp;&nbsp; ∫ f(x) dx = F(x) + C</div>
+            <p>The letter \(C\) represents every possible constant.</p>
+          </div>
+        </section>
+
+        <section id="types">
+          <div class="section-head">
+            <div class="section-number">04</div>
+            <div>
+              <h2>Indefinite or definite?</h2>
+              <p class="section-subtitle">Look for numbers above and below the integral symbol.</p>
+            </div>
+          </div>
+
+          <div class="compare">
+            <div class="compare-card">
+              <b>Indefinite integral</b>
+              <div class="formula">∫ f(x) dx</div>
+              <p>There are <strong>no limits</strong>.</p>
+              <p>The answer is a function.</p>
+              <p>Always include <strong>+C</strong>.</p>
+            </div>
+            <div class="compare-card">
+              <b>Definite integral</b>
+              <div class="formula">∫<sub>a</sub><sup>b</sup> f(x) dx</div>
+              <p>It has lower limit \(a\) and upper limit \(b\).</p>
+              <p>Find an antiderivative, then calculate \(F(b)−F(a)\).</p>
+              <p>Do <strong>not</strong> include +C in the final answer.</p>
+            </div>
+          </div>
+
+          <div class="memory">
+            <strong>Quick rule:</strong> no limits → indefinite → \(+C\). Limits present → definite → upper value minus lower value.
+          </div>
+        </section>
+
+        <section id="basic-integrals">
+          <div class="section-head">
+            <div class="section-number">05</div>
+            <div>
+              <h2>Basic integration rules</h2>
+              <p class="section-subtitle">Increase the power, divide by the new power, and add +C.</p>
+            </div>
+          </div>
+
+          <div class="formula"><small>Power rule · n ≠ −1</small>∫ x<sup>n</sup> dx = x<sup>n+1</sup>/(n+1) + C</div>
+
+          <div class="card">
+            <h3>How to use the power rule</h3>
+            <ol class="steps">
+              <li>Identify the current power \(n\).</li>
+              <li>Increase it by one: \(n+1\).</li>
+              <li>Divide by the new power.</li>
+              <li>Keep any coefficient and simplify.</li>
+              <li>Add \(+C\) for an indefinite integral.</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <h3>Special integrals</h3>
+            <table>
+              <thead><tr><th>Integral</th><th>Answer</th><th>Remember</th></tr></thead>
+              <tbody>
+                <tr><td>∫ x<sup>n</sup> dx</td><td>x<sup>n+1</sup>/(n+1) + C</td><td>For n ≠ −1.</td></tr>
+                <tr><td>∫ 1/x dx</td><td>ln|x| + C</td><td>The exception to the power rule.</td></tr>
+                <tr><td>∫ e<sup>x</sup> dx</td><td>e<sup>x</sup> + C</td><td>It stays the same.</td></tr>
+                <tr><td>∫ e<sup>ax</sup> dx</td><td>e<sup>ax</sup>/a + C</td><td>Divide by the derivative of the exponent.</td></tr>
+                <tr><td>∫ sin x dx</td><td>−cos x + C</td><td>The minus sign matters.</td></tr>
+                <tr><td>∫ cos x dx</td><td>sin x + C</td><td>No minus sign.</td></tr>
+                <tr><td>∫ c dx</td><td>cx + C</td><td>A constant becomes constant times x.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Example · integrate each term</h3>
+            <div class="worked">
+              <div class="worked-head"><span class="worked-tag">Solved</span><span class="worked-title">Polynomial</span></div>
+              <div class="math-line">∫ (3x² − 4x + 5) dx</div>
+              <div class="math-line">= ∫3x² dx − ∫4x dx + ∫5 dx</div>
+              <div class="math-line">= x³ − 2x² + 5x + C</div>
+              <div class="math-line answer">Answer: x³ − 2x² + 5x + C</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Example · negative exponent</h3>
+            <div class="worked">
+              <div class="worked-head"><span class="worked-tag">Solved</span><span class="worked-title">Rewrite the fraction first</span></div>
+              <div class="math-line">∫ 2/x³ dx = ∫ 2x<sup>−3</sup> dx</div>
+              <div class="math-line">= 2 · x<sup>−2</sup>/−2 + C</div>
+              <div class="math-line">= −x<sup>−2</sup> + C</div>
+              <div class="math-line answer">Answer: −1/x² + C</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="substitution">
+          <div class="section-head">
+            <div class="section-number">06</div>
+            <div>
+              <h2>Substitution and the meaning of du</h2>
+              <p class="section-subtitle">Replace the inside function and its derivative as one complete package.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Why we use u and du</h3>
+            <p>The letter \(u\) is only a temporary name for the inside function. The symbol \(du\) represents the derivative of that inside function multiplied by \(dx\).</p>
+            <div class="formula-grid">
+              <div class="formula"><small>Inside function</small>u = g(x)</div>
+              <div class="formula"><small>Its differential</small>du = g′(x) dx</div>
+            </div>
+            <p>If you choose \(y\) instead of \(u\), you use \(y\) and \(dy\). The letter does not matter; consistency does.</p>
+          </div>
+
+          <div class="card">
+            <h3>The complete replacement</h3>
+            <div class="worked">
+              <div class="worked-head"><span class="worked-tag">Core example</span><span class="worked-title">Every symbol replaced</span></div>
+              <div class="math-line">∫ 2x(x² + 3)<sup>4</sup> dx</div>
+              <div class="math-line"><span class="label">Choose</span>u = x² + 3</div>
+              <div class="math-line"><span class="label">Differentiate</span>du/dx = 2x, so du = 2x dx</div>
+              <div class="math-line"><span class="label">Replace</span>(x² + 3)<sup>4</sup> → u<sup>4</sup> and 2x dx → du</div>
+              <div class="math-line">∫ u<sup>4</sup> du = u<sup>5</sup>/5 + C</div>
+              <div class="math-line answer">Answer: (x² + 3)<sup>5</sup>/5 + C</div>
+            </div>
+          </div>
+
+          <div class="memory">
+            <strong>Do not write only \(du=2x\).</strong> The complete statement is \(du=2x\,dx\). The \(dx\) changes to \(du\) when the integration variable changes from \(x\) to \(u\).
+          </div>
+
+          <div class="card">
+            <h3>Substitution method</h3>
+            <ol class="steps">
+              <li>Choose \(u\) as the inside expression.</li>
+              <li>Differentiate it to find \(du\).</li>
+              <li>Match the derivative-times-\(dx\) part of the original integral.</li>
+              <li>Rewrite the entire integral using only \(u\) and \(du\).</li>
+              <li>Integrate with respect to \(u\).</li>
+              <li>Replace \(u\) with its original expression and add \(+C\).</li>
+            </ol>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head"><span class="worked-tag">Solved together</span><span class="worked-title">Exact derivative match</span></div>
+            <div class="math-line">∫ 2x(x² + 5)<sup>3</sup> dx</div>
+            <div class="math-line">u = x² + 5, &nbsp; du = 2x dx</div>
+            <div class="math-line">∫ u³ du = u⁴/4 + C</div>
+            <div class="math-line answer">Answer: (x² + 5)⁴/4 + C</div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head"><span class="worked-tag">Solved together</span><span class="worked-title">Another exact match</span></div>
+            <div class="math-line">∫ 3x²(x³ + 4)<sup>5</sup> dx</div>
+            <div class="math-line">u = x³ + 4, &nbsp; du = 3x² dx</div>
+            <div class="math-line">∫ u⁵ du = u⁶/6 + C</div>
+            <div class="math-line answer">Answer: (x³ + 4)⁶/6 + C</div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head"><span class="worked-tag">Solved together</span><span class="worked-title">Extra constant outside</span></div>
+            <div class="math-line">∫ 6x(x² + 1)² dx</div>
+            <div class="math-line">u = x² + 1, &nbsp; du = 2x dx</div>
+            <div class="math-line">6x dx = 3(2x dx) = 3du</div>
+            <div class="math-line">3∫u² du = 3(u³/3) + C = u³ + C</div>
+            <div class="math-line answer">Answer: (x² + 1)³ + C</div>
+          </div>
+        </section>
+
+        <section id="parts">
+          <div class="section-head">
+            <div class="section-number">07</div>
+            <div>
+              <h2>Integration by parts</h2>
+              <p class="section-subtitle">Use it for a product when one function becomes simpler after differentiation.</p>
+            </div>
+          </div>
+
+          <div class="formula"><small>Integration by parts</small>∫ u dv = uv − ∫ v du</div>
+
+          <div class="card">
+            <h3>How to choose the parts</h3>
+            <p>For \(∫xeˣdx\), choose \(u=x\) because differentiating \(x\) makes it simpler: \(x→1\). Choose \(dv=eˣdx\) because integrating \(eˣ\) is easy: it remains \(eˣ\).</p>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head"><span class="worked-tag">Solved together</span><span class="worked-title">Product x · eˣ</span></div>
+            <div class="math-line">∫ xe<sup>x</sup> dx</div>
+            <div class="math-line"><span class="label">Choose</span>u = x, &nbsp; dv = e<sup>x</sup> dx</div>
+            <div class="math-line"><span class="label">Find</span>du = dx, &nbsp; v = e<sup>x</sup></div>
+            <div class="math-line"><span class="label">Formula</span>uv − ∫v du</div>
+            <div class="math-line">= xe<sup>x</sup> − ∫e<sup>x</sup> dx</div>
+            <div class="math-line">= xe<sup>x</sup> − e<sup>x</sup> + C</div>
+            <div class="math-line answer">Answer: e<sup>x</sup>(x − 1) + C</div>
+          </div>
+
+          <div class="card">
+            <h3>Exponential facts used here</h3>
+            <div class="formula-grid">
+              <div class="formula"><small>Exactly eˣ</small>d/dx(e<sup>x</sup>) = e<sup>x</sup><br>∫e<sup>x</sup>dx = e<sup>x</sup> + C</div>
+              <div class="formula"><small>Exponent ax</small>d/dx(e<sup>ax</sup>) = ae<sup>ax</sup><br>∫e<sup>ax</sup>dx = e<sup>ax</sup>/a + C</div>
+            </div>
+            <p>For example, \(∫e^{-x}dx=-e^{-x}+C\), because the derivative of \(-x\) is \(-1\).</p>
+          </div>
+        </section>
+
+        <section id="definite">
+          <div class="section-head">
+            <div class="section-number">08</div>
+            <div>
+              <h2>Definite integrals</h2>
+              <p class="section-subtitle">Find the antiderivative first, then calculate upper minus lower.</p>
+            </div>
+          </div>
+
+          <div class="formula"><small>Fundamental Theorem of Calculus</small>∫<sub>a</sub><sup>b</sup> f(x) dx = [F(x)]<sub>a</sub><sup>b</sup> = F(b) − F(a)</div>
+
+          <div class="card">
+            <h3>What the bracket notation means</h3>
+            <p>\([F(x)]ₐᵇ\) is only a shorter way to write \(F(b)−F(a)\). Put the upper number into every \(x\), put the lower number into every \(x\), then subtract.</p>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head"><span class="worked-tag">Worked example</span><span class="worked-title">Fundamental Theorem</span></div>
+            <div class="math-line">∫<sub>0</sub><sup>2</sup> (3x² + 1) dx</div>
+            <div class="math-line"><span class="label">Antiderivative</span>F(x) = x³ + x</div>
+            <div class="math-line"><span class="label">Upper</span>F(2) = 2³ + 2 = 10</div>
+            <div class="math-line"><span class="label">Lower</span>F(0) = 0³ + 0 = 0</div>
+            <div class="math-line answer">Answer: F(2) − F(0) = 10</div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head"><span class="worked-tag">Solved together</span><span class="worked-title">Polynomial definite integral</span></div>
+            <div class="math-line">∫<sub>1</sub><sup>3</sup> (2x + 1) dx</div>
+            <div class="math-line">F(x) = x² + x</div>
+            <div class="math-line">F(3) = 3² + 3 = 12</div>
+            <div class="math-line">F(1) = 1² + 1 = 2</div>
+            <div class="math-line answer">Answer: 12 − 2 = 10</div>
+          </div>
+
+          <div class="card">
+            <h3>Definite integral with substitution</h3>
+            <p>When changing from \(x\) to \(u\), you may also change the limits. Put each old \(x\)-limit into the equation \(u=g(x)\).</p>
+            <div class="worked">
+              <div class="worked-head"><span class="worked-tag">Solved together</span><span class="worked-title">Change the limits</span></div>
+              <div class="math-line">∫<sub>0</sub><sup>1</sup> 2x(x² + 1)³ dx</div>
+              <div class="math-line">u = x² + 1, &nbsp; du = 2x dx</div>
+              <div class="math-line">x = 0 → u = 1; &nbsp; x = 1 → u = 2</div>
+              <div class="math-line">∫<sub>1</sub><sup>2</sup> u³ du = [u⁴/4]<sub>1</sub><sup>2</sup></div>
+              <div class="math-line answer">Answer: 16/4 − 1/4 = 15/4</div>
+            </div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head"><span class="worked-tag">Solved together</span><span class="worked-title">A negative definite integral</span></div>
+            <div class="math-line">∫<sub>0</sub><sup>2</sup> (x − 2) dx</div>
+            <div class="math-line">F(x) = x²/2 − 2x</div>
+            <div class="math-line">F(2) = 2 − 4 = −2; &nbsp; F(0) = 0</div>
+            <div class="math-line answer">Answer: −2 − 0 = −2</div>
+          </div>
+
+          <div class="memory">
+            A definite integral measures <strong>signed area</strong>. An answer can be negative when the graph lies below the \(x\)-axis.
+          </div>
+
+          <div class="worked">
+            <div class="worked-head"><span class="worked-tag">Solved together</span><span class="worked-title">The logarithmic form</span></div>
+            <div class="math-line">∫<sub>1</sub><sup>e</sup> 1/x dx</div>
+            <div class="math-line">F(x) = ln x</div>
+            <div class="math-line">[ln x]<sub>1</sub><sup>e</sup> = ln(e) − ln(1)</div>
+            <div class="math-line">ln(e) = 1 and ln(1) = 0</div>
+            <div class="math-line answer">Answer: 1 − 0 = 1</div>
+          </div>
+        </section>
+
+        <section id="solved">
+          <div class="section-head">
+            <div class="section-number">09</div>
+            <div>
+              <h2>All questions we solved</h2>
+              <p class="section-subtitle">A compact review list for quick revision.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <table>
+              <thead><tr><th>Question</th><th>Method</th><th>Answer</th></tr></thead>
+              <tbody>
+                <tr><td>∫(3x²−4x+5)dx</td><td>Integrate term by term</td><td>x³−2x²+5x+C</td></tr>
+                <tr><td>∫2/x³ dx</td><td>Rewrite as 2x<sup>−3</sup></td><td>−1/x²+C</td></tr>
+                <tr><td>∫2x(x²+5)³dx</td><td>Substitution</td><td>(x²+5)⁴/4+C</td></tr>
+                <tr><td>∫3x²(x³+4)⁵dx</td><td>Substitution</td><td>(x³+4)⁶/6+C</td></tr>
+                <tr><td>∫6x(x²+1)²dx</td><td>Substitution + constant</td><td>(x²+1)³+C</td></tr>
+                <tr><td>∫xe<sup>x</sup>dx</td><td>Integration by parts</td><td>e<sup>x</sup>(x−1)+C</td></tr>
+                <tr><td>∫<sub>0</sub><sup>2</sup>(3x²+1)dx</td><td>Fundamental Theorem</td><td>10</td></tr>
+                <tr><td>∫<sub>1</sub><sup>3</sup>(2x+1)dx</td><td>Fundamental Theorem</td><td>10</td></tr>
+                <tr><td>∫<sub>0</sub><sup>1</sup>2x(x²+1)³dx</td><td>Definite substitution</td><td>15/4</td></tr>
+                <tr><td>∫<sub>0</sub><sup>2</sup>(x−2)dx</td><td>Fundamental Theorem</td><td>−2</td></tr>
+                <tr><td>∫<sub>1</sub><sup>e</sup>1/x dx</td><td>Logarithmic form</td><td>1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="mistakes">
+          <div class="section-head">
+            <div class="section-number">10</div>
+            <div>
+              <h2>Common mistakes to avoid</h2>
+              <p class="section-subtitle">These small details often decide whether an answer receives full marks.</p>
+            </div>
+          </div>
+
+          <div class="mistakes">
+            <div class="mistake"><b>Forgetting +C</b>Add it to every indefinite integral.</div>
+            <div class="mistake"><b>Adding +C to a definite answer</b>Do not include it after evaluating limits.</div>
+            <div class="mistake"><b>Writing du = 2x</b>Write the complete expression: du = 2x dx.</div>
+            <div class="mistake"><b>Mixing variables</b>After substitution, the integral should contain only u and du.</div>
+            <div class="mistake"><b>Lower minus upper</b>The order is always upper value minus lower value.</div>
+            <div class="mistake"><b>Missing parentheses</b>Use F(b) − F(a), especially when F(a) is negative.</div>
+            <div class="mistake"><b>Using the power rule for 1/x</b>The answer is ln|x|+C, not x⁰/0.</div>
+            <div class="mistake"><b>Thinking 2x = x²</b>They are not equal; x² is the antiderivative of 2x.</div>
+            <div class="mistake"><b>Integrating a product separately</b>In general, ∫fg dx is not (∫f dx)(∫g dx).</div>
+            <div class="mistake"><b>Ignoring a negative result</b>A definite integral may be negative because it measures signed area.</div>
+          </div>
+        </section>
+
+        <section id="formula-sheet">
+          <div class="section-head">
+            <div class="section-number">11</div>
+            <div>
+              <h2>One-page memory sheet</h2>
+              <p class="section-subtitle">The formulas and decisions to recall during the quiz.</p>
+            </div>
+          </div>
+
+          <div class="formula-grid">
+            <div class="formula"><small>Derivative power rule</small>d/dx(x<sup>n</sup>) = nx<sup>n−1</sup></div>
+            <div class="formula"><small>Integral power rule</small>∫x<sup>n</sup>dx = x<sup>n+1</sup>/(n+1) + C</div>
+            <div class="formula"><small>Logarithmic integral</small>∫1/x dx = ln|x| + C</div>
+            <div class="formula"><small>Exponential integral</small>∫e<sup>ax</sup>dx = e<sup>ax</sup>/a + C</div>
+            <div class="formula"><small>Substitution</small>u = g(x), &nbsp; du = g′(x)dx</div>
+            <div class="formula"><small>Integration by parts</small>∫u dv = uv − ∫v du</div>
+            <div class="formula"><small>Definite integral</small>∫<sub>a</sub><sup>b</sup>f(x)dx = F(b) − F(a)</div>
+            <div class="formula"><small>Chain rule</small>d/dx[f(g(x))] = f′(g(x))g′(x)</div>
+          </div>
+
+          <div class="card">
+            <h3>Method chooser</h3>
+            <table>
+              <thead><tr><th>What you see</th><th>Likely method</th></tr></thead>
+              <tbody>
+                <tr><td>Sum of powers</td><td>Integrate each term with the power rule.</td></tr>
+                <tr><td>Inside function + its derivative</td><td>Substitution.</td></tr>
+                <tr><td>A product such as xe<sup>x</sup></td><td>Integration by parts.</td></tr>
+                <tr><td>Numbers above and below ∫</td><td>Definite integral: find F, then upper minus lower.</td></tr>
+                <tr><td>Exactly 1/x</td><td>Use ln|x|.</td></tr>
+                <tr><td>A fraction with powers of x</td><td>Rewrite using negative exponents first.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="checklist">
+          <div class="section-head">
+            <div class="section-number">✓</div>
+            <div>
+              <h2>Final readiness checklist</h2>
+              <p class="section-subtitle">Your checked items are saved automatically in this browser.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>I understand that integration is reverse differentiation.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I know what an antiderivative is.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can identify indefinite and definite integrals.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I remember +C for indefinite integrals.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can use the power rule, including negative powers.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I remember that ∫1/x dx = ln|x| + C.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I understand the difference between u and du.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can recognize the substitution pattern.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can solve a simple integration-by-parts problem.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can evaluate F(b) − F(a) correctly.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can change limits during definite substitution.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can explain why a definite integral may be negative.</span></label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Continue studying</h3>
+            <div class="resource-links">
+              <a href="question-1-integrals.html">Question 1 practice page</a>
+              <a href="quiz-2-study-guide.html">Full Quiz 2 guide</a>
+              <a href="indefinite-integrals-table-and-homework.pdf">Integral formula table</a>
+              <a href="lecture-07-integration.pdf">Lecture 7</a>
+              <a href="lecture-08-integration-by-substitution.pdf">Lecture 8</a>
+              <a href="lecture-10-definite-integrals.pdf">Lecture 10</a>
+            </div>
+          </div>
+        </section>
+
+        <footer>Integration &amp; Derivatives · Complete Notes · Built from everything we learned together.</footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const links = [...document.querySelectorAll(".nav-link")];
+    const sections = [...document.querySelectorAll("section[id]")];
+
+    const observer = new IntersectionObserver(entries => {
+      const current = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!current) return;
+      links.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${current.target.id}`);
+      });
+    }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.15, 0.5] });
+
+    sections.forEach(section => observer.observe(section));
+
+    const checkboxes = [...document.querySelectorAll(".check-row input")];
+    const storageKey = "integration-derivatives-notes-checklist";
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      if (Array.isArray(saved)) {
+        checkboxes.forEach((box, index) => box.checked = Boolean(saved[index]));
+      }
+    } catch (_) {
+      localStorage.removeItem(storageKey);
+    }
+
+    checkboxes.forEach(box => {
+      box.addEventListener("change", () => {
+        localStorage.setItem(storageKey, JSON.stringify(checkboxes.map(item => item.checked)));
+      });
+    });
+  </script>
+</body>
+</html>

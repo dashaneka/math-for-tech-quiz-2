@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Math for Tech — Quiz 2 study guides, notes, and practice pages.">
+  <title>Math for Tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #f5f8ff;
+      --muted: #aab7ce;
+      --line: rgba(191, 213, 255, 0.17);
+      --glass: rgba(8, 18, 38, 0.42);
+      --cyan: #9fdaf1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      color: var(--white);
+      background: #071426 url("math-study-background.png") center / cover fixed;
+      font-family: "Manrope", sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(circle at center, rgba(9, 23, 49, 0.08) 0%, rgba(3, 10, 24, 0.3) 58%, rgba(2, 7, 18, 0.64) 100%),
+        linear-gradient(180deg, rgba(2, 8, 20, 0.1), rgba(2, 8, 20, 0.34));
+      pointer-events: none;
+    }
+
+    .landing {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      padding: 54px 24px;
+    }
+
+    .content {
+      width: min(620px, 100%);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(58px, 9vw, 104px);
+      font-weight: 500;
+      letter-spacing: -0.055em;
+      line-height: 0.92;
+      text-shadow: 0 8px 45px rgba(0, 0, 0, 0.36);
+    }
+
+    h1 em {
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 25px 0 33px;
+      padding: 8px 14px;
+      color: #c8d8eb;
+      background: rgba(12, 29, 57, 0.58);
+      border: 1px solid rgba(171, 209, 239, 0.22);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(159, 218, 241, 0.7);
+    }
+
+    .links {
+      overflow: hidden;
+      background: var(--glass);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+      text-align: left;
+    }
+
+    .study-link {
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      gap: 14px;
+      align-items: center;
+      min-height: 67px;
+      padding: 12px 20px;
+      color: var(--white);
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      transition: background 180ms ease, padding 180ms ease;
+    }
+
+    .study-link:last-child {
+      border-bottom: 0;
+    }
+
+    .study-link:hover,
+    .study-link:focus-visible {
+      padding-left: 25px;
+      background: rgba(117, 173, 215, 0.12);
+      outline: none;
+    }
+
+    .number {
+      color: #7993b4;
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+    }
+
+    .link-copy strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .link-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .arrow {
+      color: #7e9fbd;
+      font-size: 17px;
+      transition: transform 180ms ease, color 180ms ease;
+    }
+
+    .study-link:hover .arrow,
+    .study-link:focus-visible .arrow {
+      color: var(--cyan);
+      transform: translateX(4px);
+    }
+
+    .footnote {
+      margin: 20px 0 0;
+      color: rgba(184, 199, 220, 0.58);
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .content {
+        animation: arrive 700ms cubic-bezier(.2,.8,.2,1) both;
+      }
+
+      @keyframes arrive {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    @media (max-width: 520px) {
+      .landing {
+        align-items: start;
+        padding-top: 72px;
+      }
+
+      .study-link {
+        grid-template-columns: 28px 1fr auto;
+        gap: 10px;
+        padding-right: 16px;
+        padding-left: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="landing" aria-labelledby="page-title">
+    <div class="content">
+      <h1 id="page-title">Math <em>for</em> Tech</h1>
+      <div class="pill">Learning the basics</div>
+
+      <nav class="links" aria-label="Study pages">
+        <a class="study-link" href="quiz-2-study-guide.html">
+          <span class="number">00</span>
+          <span class="link-copy">
+            <strong>Quiz 2 study guide</strong>
+            <span>The complete roadmap and study order</span>
+          </span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="study-link" href="integration-and-derivatives-notes.html">
+          <span class="number">01</span>
+          <span class="link-copy">
+            <strong>Integration &amp; derivatives notes</strong>
+            <span>Everything we learned, from the beginning</span>
+          </span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="study-link" href="question-1-integrals.html">
+          <span class="number">02</span>
+          <span class="link-copy">
+            <strong>Question 1 · Integrals</strong>
+            <span>Indefinite and definite integrals</span>
+          </span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="study-link" href="question-2-improper-integrals.html">
+          <span class="number">03</span>
+          <span class="link-copy">
+            <strong>Question 2 · Improper integrals</strong>
+            <span>Limits, convergence, and divergence</span>
+          </span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a class="study-link" href="question-3-first-order-differential-equations.html">
+          <span class="number">04</span>
+          <span class="link-copy">
+            <strong>Question 3 · Differential equations</strong>
+            <span>First-order methods and practice</span>
+          </span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
+
+      <p class="footnote">Quiz 2 preparation · one step at a time</p>
+    </div>
+  </section>
+</body>
+</html>

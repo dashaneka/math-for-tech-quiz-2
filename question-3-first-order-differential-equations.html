@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Focused preparation for Quiz 2 Question 3: first-order differential equations, separable equations, linear equations, initial values, slope fields, and Euler's method.">
+  <title>Question 3 · First-Order Differential Equations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f5f2ed;
+      --surface: #fffefa;
+      --sidebar: #f0ece7;
+      --ink: #24221f;
+      --body: #5a5651;
+      --muted: #8b8781;
+      --line: #e3ddd4;
+      --purple: #66528a;
+      --purple-soft: #ece7f3;
+      --green: #3b7058;
+      --green-soft: #e5f0ea;
+      --red: #a64b48;
+      --red-soft: #f5e8e6;
+      --amber: #ad6c33;
+      --amber-soft: #f8ecdf;
+      --dark: #27242a;
+      --shadow: 0 20px 65px rgba(41, 37, 43, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 28px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 7% 3%, rgba(102, 82, 138, 0.09), transparent 27rem),
+        var(--paper);
+      font-family: "DM Sans", sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      width: min(1240px, calc(100% - 56px));
+      min-height: 100vh;
+      margin: 28px auto;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 40px 30px;
+      background: var(--sidebar);
+      border-right: 1px solid var(--line);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      font-family: "Newsreader", serif;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 35px;
+      min-width: 35px;
+      height: 35px;
+      color: #fff;
+      background: var(--purple);
+      border-radius: 11px 11px 11px 3px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .nav-group { margin: 24px 0; }
+    .nav-label {
+      margin: 0 0 8px 11px;
+      color: #a6a09a;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      display: block;
+      margin: 2px 0;
+      padding: 8px 11px;
+      color: #7d7772;
+      border-radius: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: 150ms ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--purple);
+      background: rgba(102, 82, 138, 0.09);
+    }
+
+    .side-links {
+      display: grid;
+      gap: 8px;
+      margin-top: 32px;
+    }
+
+    .side-links a {
+      padding: 9px 11px;
+      color: var(--purple);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(102,82,138,0.15);
+      border-radius: 9px;
+      font-size: 11px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    main { min-width: 0; padding-bottom: 80px; }
+
+    header {
+      position: relative;
+      padding: 70px 68px 55px;
+      background: linear-gradient(180deg, #fbf9f7, var(--surface));
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "y′";
+      position: absolute;
+      top: -45px;
+      right: 22px;
+      color: rgba(102, 82, 138, 0.055);
+      font-family: Georgia, serif;
+      font-size: 220px;
+      font-style: italic;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 15px;
+      color: var(--purple);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      background: var(--purple);
+    }
+
+    h1, h2 {
+      font-family: "Newsreader", Georgia, serif;
+      letter-spacing: -0.035em;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(46px, 5.8vw, 69px);
+      font-weight: 600;
+      line-height: 0.99;
+    }
+
+    h1 em { color: var(--purple); font-weight: 600; }
+
+    .intro {
+      position: relative;
+      z-index: 1;
+      max-width: 650px;
+      margin: 21px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .exam-card {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin-top: 28px;
+      padding: 16px 18px;
+      color: var(--body);
+      background: rgba(255,255,255,0.74);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .exam-card strong { color: var(--purple); }
+
+    .content {
+      max-width: 920px;
+      padding: 50px 68px 0;
+    }
+
+    section { margin-bottom: 68px; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 15px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .section-number {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      color: var(--purple);
+      background: var(--purple-soft);
+      border-radius: 13px;
+      font-family: "DM Mono", monospace;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 35px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .section-subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      margin: 15px 0;
+      padding: 27px 29px;
+      background: #fcfbf8;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      box-shadow: 0 7px 22px rgba(42, 39, 43, 0.025);
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .card h3::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: var(--amber);
+      border-radius: 50%;
+    }
+
+    .card p { margin: 8px 0; color: var(--body); }
+    strong { color: var(--ink); }
+
+    .formula {
+      margin: 13px 0;
+      padding: 18px 21px;
+      color: #f6f2f6;
+      background: var(--dark);
+      border-radius: 11px;
+      overflow-x: auto;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 20px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .formula small {
+      display: block;
+      margin-bottom: 4px;
+      color: #b8aebd;
+      font-family: "DM Sans", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .formula sup, .formula sub,
+    .math-line sup, .math-line sub,
+    .problem-math sup, .problem-math sub { font-size: 0.65em; }
+
+    .formula-grid,
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .type-card {
+      padding: 21px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .type-card b {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--purple);
+      font-size: 13px;
+    }
+
+    .type-card p {
+      margin: 7px 0 0;
+      color: var(--body);
+      font-size: 12.5px;
+    }
+
+    .memory {
+      margin: 16px 0;
+      padding: 17px 20px;
+      color: #43574d;
+      background: var(--green-soft);
+      border-left: 4px solid var(--green);
+      border-radius: 4px 11px 11px 4px;
+      font-size: 13px;
+    }
+
+    .warning {
+      margin: 16px 0;
+      padding: 17px 20px;
+      color: #69482e;
+      background: var(--amber-soft);
+      border-left: 4px solid var(--amber);
+      border-radius: 4px 11px 11px 4px;
+      font-size: 13px;
+    }
+
+    .steps {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      min-height: 41px;
+      padding: 3px 0 15px 43px;
+      color: var(--body);
+      counter-increment: step;
+      font-size: 14px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: var(--purple);
+      background: var(--purple-soft);
+      border-radius: 50%;
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .worked {
+      margin: 17px 0;
+      padding: 23px 25px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .worked-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .worked-tag {
+      color: var(--purple);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .worked-title { color: var(--muted); font-size: 11px; }
+
+    .math-line {
+      padding: 8px 0;
+      color: #38343b;
+      border-bottom: 1px dashed var(--line);
+      font-family: Georgia, serif;
+      font-size: 18px;
+    }
+
+    .math-line:last-child { border-bottom: 0; }
+    .math-line.answer { color: var(--green); font-weight: 700; }
+
+    .label {
+      display: inline-block;
+      min-width: 93px;
+      color: var(--muted);
+      font-family: "DM Sans", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    th {
+      color: #fff;
+      background: var(--dark);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    td { color: var(--body); }
+    tr:last-child td { border-bottom: 0; }
+
+    .practice {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .problem {
+      padding: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .problem-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problem-number {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .problem-math {
+      margin: 15px 0;
+      color: #353137;
+      font-family: Georgia, serif;
+      font-size: 19px;
+    }
+
+    .reveal {
+      padding: 7px 10px;
+      color: var(--purple);
+      background: var(--purple-soft);
+      border: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .answer {
+      display: none;
+      margin-top: 13px;
+      padding-top: 13px;
+      color: var(--body);
+      border-top: 1px solid var(--line);
+      font-size: 12.5px;
+    }
+
+    .answer.show { display: block; }
+    .answer .final {
+      display: block;
+      margin-top: 6px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .euler-table input {
+      width: 76px;
+      padding: 7px 8px;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+    }
+
+    .euler-result {
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .checklist { display: grid; gap: 4px; }
+    .check-row {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      padding: 8px;
+      color: var(--body);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .check-row:hover { background: #f3f0f5; }
+
+    .check-row input {
+      appearance: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      background: #fff;
+      border: 1.5px solid #aea9b0;
+      border-radius: 4px;
+    }
+
+    .check-row input:checked {
+      background: var(--purple);
+      border-color: var(--purple);
+      box-shadow: inset 0 0 0 3px #fff;
+    }
+
+    .check-row:has(input:checked) span {
+      color: #9d999f;
+      text-decoration: line-through;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 22px;
+      color: #a19da3;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 870px) {
+      .page {
+        width: 100%;
+        margin: 0;
+        grid-template-columns: 1fr;
+        border: 0;
+        border-radius: 0;
+      }
+      aside { display: none; }
+      header, .content { padding-right: 27px; padding-left: 27px; }
+      .formula-grid, .type-grid, .practice { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside>
+      <div class="brand"><span class="brand-mark">Q3</span>First-Order Differential Equations</div>
+      <nav>
+        <div class="nav-group">
+          <p class="nav-label">Foundation</p>
+          <a class="active" href="#meaning">What is a differential equation?</a>
+          <a href="#solutions">Solutions &amp; initial values</a>
+          <a href="#recognize">Choose the method</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Solving methods</p>
+          <a href="#separable">Separable equations</a>
+          <a href="#linear">Linear equations</a>
+          <a href="#integrating-factor">Integrating factor</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Supporting ideas</p>
+          <a href="#slope-fields">Slope fields</a>
+          <a href="#euler">Euler's method</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Practice</p>
+          <a href="#exam-method">Exam method</a>
+          <a href="#practice">Practice questions</a>
+          <a href="#ready">Ready checklist</a>
+        </div>
+      </nav>
+      <div class="side-links">
+        <a href="lecture-12-first-order-differential-equations.pdf">Open Lecture 12</a>
+        <a href="quiz-2-study-guide.html">Full Quiz 2 guide</a>
+      </div>
+    </aside>
+
+    <main>
+      <header>
+        <div class="eyebrow">Quiz 2 · Question 3</div>
+        <h1>Find the function from its <em>rate of change.</em></h1>
+        <p class="intro">
+          A differential equation tells you how \(y\) changes. Your task is to recover
+          \(y\), first as a family of solutions and then—when given an initial condition—as one particular solution.
+        </p>
+        <div class="exam-card">
+          <strong>Main decision:</strong> Can you separate the \(x\)-terms and \(y\)-terms?
+          If yes, use separation. If the equation has the form \(y′+P(x)y=Q(x)\), use an integrating factor.
+        </div>
+      </header>
+
+      <div class="content">
+        <section id="meaning">
+          <div class="section-head">
+            <div class="section-number">01</div>
+            <div>
+              <h2>What is a differential equation?</h2>
+              <p class="section-subtitle">An equation containing an unknown function and one or more of its derivatives.</p>
+            </div>
+          </div>
+
+          <div class="formula"><small>General first-order equation</small>dy/dx = f(x, y)</div>
+
+          <div class="card">
+            <h3>Three equivalent notations</h3>
+            <div class="formula-grid">
+              <div class="formula">dy/dx = f(x,y)</div>
+              <div class="formula">y′ = f(x,y)</div>
+            </div>
+            <p>Both mean “the derivative of \(y\) with respect to \(x\) equals \(f(x,y)\).”</p>
+          </div>
+
+          <div class="type-grid">
+            <div class="type-card">
+              <b>Why “first order”?</b>
+              <p>The highest derivative present is the first derivative \(y′\). There is no \(y″\), \(y‴\), or higher derivative.</p>
+            </div>
+            <div class="type-card">
+              <b>What are we finding?</b>
+              <p>A function \(y(x)\) whose derivative satisfies the equation.</p>
+            </div>
+          </div>
+
+          <div class="memory">
+            Example: \(y′=2x\). We ask, “Which function has derivative \(2x\)?” The answer is \(y=x²+C\).
+          </div>
+        </section>
+
+        <section id="solutions">
+          <div class="section-head">
+            <div class="section-number">02</div>
+            <div>
+              <h2>Solutions and initial conditions</h2>
+              <p class="section-subtitle">A general solution has \(C\); an initial condition selects one value of \(C\).</p>
+            </div>
+          </div>
+
+          <div class="type-grid">
+            <div class="type-card">
+              <b>General solution</b>
+              <div class="formula">y = x² + C</div>
+              <p>A family of possible solutions.</p>
+            </div>
+            <div class="type-card">
+              <b>Particular solution</b>
+              <div class="formula">y = x² + 3</div>
+              <p>One solution after an initial condition determines \(C\).</p>
+            </div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Initial-value example</span>
+              <span class="worked-title">Use the given point</span>
+            </div>
+            <div class="math-line">y′ = 2x, &nbsp; y(0) = 3</div>
+            <div class="math-line"><span class="label">Integrate</span>y = x² + C</div>
+            <div class="math-line"><span class="label">Use y(0)=3</span>3 = 0² + C, so C = 3</div>
+            <div class="math-line answer">Particular solution: y = x² + 3</div>
+          </div>
+
+          <div class="card">
+            <h3>How to verify a solution</h3>
+            <p>Differentiate the proposed \(y\), then substitute \(y\) and \(y′\) into the original equation. If both sides match, it is a solution.</p>
+            <div class="formula-grid">
+              <div class="formula"><small>Proposed solution</small>y = x² + 3</div>
+              <div class="formula"><small>Differentiate</small>y′ = 2x</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="recognize">
+          <div class="section-head">
+            <div class="section-number">03</div>
+            <div>
+              <h2>Choose the solving method</h2>
+              <p class="section-subtitle">Recognizing the form is the most important first step.</p>
+            </div>
+          </div>
+
+          <div class="type-grid">
+            <div class="type-card">
+              <b>Separable</b>
+              <div class="formula">dy/dx = g(x)h(y)</div>
+              <p>You can move all \(y\)-terms beside \(dy\) and all \(x\)-terms beside \(dx\).</p>
+            </div>
+            <div class="type-card">
+              <b>First-order linear</b>
+              <div class="formula">y′ + P(x)y = Q(x)</div>
+              <p>\(y\) and \(y′\) appear only to the first power and are not multiplied together.</p>
+            </div>
+          </div>
+
+          <div class="warning">
+            Before solving a linear equation, divide when necessary so the coefficient of \(y′\) is exactly \(1\). Only then identify \(P(x)\) and \(Q(x)\).
+          </div>
+        </section>
+
+        <section id="separable">
+          <div class="section-head">
+            <div class="section-number">04</div>
+            <div>
+              <h2>Separable equations</h2>
+              <p class="section-subtitle">Separate the variables, integrate both sides, and then use the initial condition.</p>
+            </div>
+          </div>
+
+          <div class="formula"><small>Starting form</small>dy/dx = g(x)h(y)</div>
+          <div class="formula"><small>After separation</small>1/h(y) dy = g(x) dx</div>
+
+          <div class="card">
+            <h3>Separable-equation method</h3>
+            <ol class="steps">
+              <li>Move every \(y\)-term to the \(dy\) side.</li>
+              <li>Move every \(x\)-term to the \(dx\) side.</li>
+              <li>Integrate both sides.</li>
+              <li>Simplify and solve for \(y\), when possible.</li>
+              <li>Use the initial condition to determine \(C\).</li>
+              <li>Differentiate or substitute to check the solution.</li>
+            </ol>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Worked example</span>
+              <span class="worked-title">Separable initial-value problem</span>
+            </div>
+            <div class="math-line">dy/dx = 2xy, &nbsp; y(0) = 3</div>
+            <div class="math-line"><span class="label">Separate</span>(1/y) dy = 2x dx</div>
+            <div class="math-line"><span class="label">Integrate</span>∫(1/y)dy = ∫2x dx</div>
+            <div class="math-line">ln|y| = x² + C</div>
+            <div class="math-line"><span class="label">Exponentiate</span>y = Ce<sup>x²</sup></div>
+            <div class="math-line"><span class="label">Use y(0)=3</span>3 = Ce<sup>0</sup>, so C = 3</div>
+            <div class="math-line answer">Particular solution: y = 3e<sup>x²</sup></div>
+          </div>
+
+          <div class="memory">
+            When \(\int 1/y\,dy=\ln|y|\), exponentiating turns the additive constant into a multiplicative constant: \(y=Ce^{(\cdots)}\).
+          </div>
+        </section>
+
+        <section id="linear">
+          <div class="section-head">
+            <div class="section-number">05</div>
+            <div>
+              <h2>First-order linear equations</h2>
+              <p class="section-subtitle">Put the equation in standard form before doing anything else.</p>
+            </div>
+          </div>
+
+          <div class="formula"><small>Standard form</small>y′ + P(x)y = Q(x)</div>
+
+          <div class="card">
+            <h3>How to recognize a linear equation</h3>
+            <table>
+              <thead><tr><th>Allowed</th><th>Not linear</th></tr></thead>
+              <tbody>
+                <tr><td>y′ + x y = e<sup>x</sup></td><td>y′ + y² = x</td></tr>
+                <tr><td>x y′ + 2y = 1</td><td>y y′ = x</td></tr>
+                <tr><td>y′ − (3/x)y = x</td><td>y′ + sin(y) = x</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Lecture 12 · Standard form</span>
+              <span class="worked-title">Divide and move terms</span>
+            </div>
+            <div class="math-line">x y′ = x² + 3y, &nbsp; x &gt; 0</div>
+            <div class="math-line"><span class="label">Divide by x</span>y′ = x + (3/x)y</div>
+            <div class="math-line"><span class="label">Move y-term</span>y′ − (3/x)y = x</div>
+            <div class="math-line answer">P(x) = −3/x and Q(x) = x</div>
+          </div>
+
+          <div class="warning">
+            The sign belongs to \(P(x)\). In \(y′−(3/x)y=x\), the function is \(P(x)=−3/x\), not \(+3/x\).
+          </div>
+        </section>
+
+        <section id="integrating-factor">
+          <div class="section-head">
+            <div class="section-number">06</div>
+            <div>
+              <h2>The integrating factor</h2>
+              <p class="section-subtitle">A multiplier that turns the left side into one product derivative.</p>
+            </div>
+          </div>
+
+          <div class="formula"><small>Integrating factor</small>μ(x) = e<sup>∫P(x)dx</sup></div>
+          <div class="formula"><small>After multiplying</small>(μy)′ = μQ</div>
+
+          <div class="card">
+            <h3>Linear-equation method</h3>
+            <ol class="steps">
+              <li>Write the equation as \(y′+P(x)y=Q(x)\).</li>
+              <li>Identify \(P(x)\) and calculate \(\mu=e^{\int P(x)dx}\).</li>
+              <li>Multiply every term in the equation by \(\mu\).</li>
+              <li>Rewrite the left side as the product derivative \((\mu y)′\).</li>
+              <li>Integrate both sides: \(\mu y=\int\mu Q\,dx+C\).</li>
+              <li>Divide by \(\mu\) and apply any initial condition.</li>
+            </ol>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Worked example</span>
+              <span class="worked-title">Linear initial-value problem</span>
+            </div>
+            <div class="math-line">y′ + y = e<sup>x</sup>, &nbsp; y(0) = 1</div>
+            <div class="math-line"><span class="label">Identify</span>P(x)=1, &nbsp; Q(x)=e<sup>x</sup></div>
+            <div class="math-line"><span class="label">Factor</span>μ=e<sup>∫1dx</sup>=e<sup>x</sup></div>
+            <div class="math-line"><span class="label">Multiply</span>e<sup>x</sup>y′ + e<sup>x</sup>y = e<sup>2x</sup></div>
+            <div class="math-line"><span class="label">Product</span>(e<sup>x</sup>y)′ = e<sup>2x</sup></div>
+            <div class="math-line"><span class="label">Integrate</span>e<sup>x</sup>y = (1/2)e<sup>2x</sup> + C</div>
+            <div class="math-line"><span class="label">Solve for y</span>y = (1/2)e<sup>x</sup> + Ce<sup>−x</sup></div>
+            <div class="math-line"><span class="label">Use y(0)=1</span>1 = 1/2 + C, so C = 1/2</div>
+            <div class="math-line answer">Particular solution: y = (e<sup>x</sup> + e<sup>−x</sup>)/2</div>
+          </div>
+        </section>
+
+        <section id="slope-fields">
+          <div class="section-head">
+            <div class="section-number">07</div>
+            <div>
+              <h2>Slope fields</h2>
+              <p class="section-subtitle">A visual map of the slopes prescribed by \(y′=f(x,y)\).</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>How to read one</h3>
+            <p>At each point \((x,y)\), calculate \(f(x,y)\). Draw a tiny line segment with that slope. A solution curve follows these segments without crossing against their direction.</p>
+            <div class="type-grid">
+              <div class="type-card"><b>If y′ &gt; 0</b><p>The small segment rises from left to right.</p></div>
+              <div class="type-card"><b>If y′ &lt; 0</b><p>The small segment falls from left to right.</p></div>
+              <div class="type-card"><b>If y′ = 0</b><p>The small segment is horizontal.</p></div>
+              <div class="type-card"><b>Larger |y′|</b><p>The small segment is steeper.</p></div>
+            </div>
+          </div>
+
+          <div class="memory">
+            A slope field does not give one solution. The initial condition selects the one solution curve passing through the given starting point.
+          </div>
+        </section>
+
+        <section id="euler">
+          <div class="section-head">
+            <div class="section-number">08</div>
+            <div>
+              <h2>Euler’s method</h2>
+              <p class="section-subtitle">Use the current slope to take a small numerical step.</p>
+            </div>
+          </div>
+
+          <div class="formula-grid">
+            <div class="formula"><small>Next x-value</small>x<sub>n+1</sub> = x<sub>n</sub> + h</div>
+            <div class="formula"><small>Next y-value</small>y<sub>n+1</sub> = y<sub>n</sub> + h f(x<sub>n</sub>,y<sub>n</sub>)</div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Worked example</span>
+              <span class="worked-title">Two Euler steps</span>
+            </div>
+            <div class="math-line">y′ = x + y, &nbsp; y(0)=1, &nbsp; h=0.1</div>
+            <div class="math-line"><span class="label">Start</span>x₀=0, y₀=1, slope=0+1=1</div>
+            <div class="math-line"><span class="label">Step 1</span>x₁=0.1, y₁=1+0.1(1)=1.1</div>
+            <div class="math-line"><span class="label">New slope</span>f(0.1,1.1)=0.1+1.1=1.2</div>
+            <div class="math-line answer">Step 2: x₂=0.2, y₂=1.1+0.1(1.2)=1.22</div>
+          </div>
+
+          <div class="warning">
+            Always calculate the slope using the <strong>current</strong> point before moving to the next point.
+          </div>
+        </section>
+
+        <section id="exam-method">
+          <div class="section-head">
+            <div class="section-number">09</div>
+            <div>
+              <h2>The Question 3 exam method</h2>
+              <p class="section-subtitle">Identify the equation type before choosing any formula.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <ol class="steps">
+              <li><strong>Read the equation:</strong> identify \(y′\), \(x\), \(y\), and any initial condition.</li>
+              <li><strong>Classify:</strong> directly integrable, separable, or first-order linear?</li>
+              <li><strong>Solve:</strong> separate variables or calculate the integrating factor.</li>
+              <li><strong>Integrate carefully</strong> and include the constant \(C\).</li>
+              <li><strong>Use the initial condition</strong> to find \(C\), if one is provided.</li>
+              <li><strong>Check</strong> by differentiating and substituting into the original equation.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="practice">
+          <div class="section-head">
+            <div class="section-number">10</div>
+            <div>
+              <h2>Practice questions</h2>
+              <p class="section-subtitle">Solve on paper first, then reveal the solution.</p>
+            </div>
+          </div>
+
+          <div class="practice">
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P1 · Direct integration</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">y′ = 4x³</div>
+              <div class="answer">Integrate: y = ∫4x³dx.<span class="final">General solution: y = x⁴ + C.</span></div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P2 · Initial condition</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">y′ = 2x, &nbsp; y(1)=5</div>
+              <div class="answer">y=x²+C. Use 5=1+C, so C=4.<span class="final">Particular solution: y=x²+4.</span></div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P3 · Separable</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">dy/dx = 3xy</div>
+              <div class="answer">(1/y)dy=3x dx. Then ln|y|=3x²/2+C.<span class="final">General solution: y=Ce<sup>3x²/2</sup>.</span></div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P4 · Separable IVP</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">dy/dx = 2xy, &nbsp; y(0)=4</div>
+              <div class="answer">General solution y=Ce<sup>x²</sup>. Use 4=C.<span class="final">Particular solution: y=4e<sup>x²</sup>.</span></div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P5 · Linear</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">y′ + 2y = 4</div>
+              <div class="answer">P=2, μ=e<sup>2x</sup>. Then (e<sup>2x</sup>y)′=4e<sup>2x</sup>.<span class="final">General solution: y=2+Ce<sup>−2x</sup>.</span></div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P6 · Linear IVP</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">y′ + y = 0, &nbsp; y(0)=3</div>
+              <div class="answer">μ=e<sup>x</sup>. Then (e<sup>x</sup>y)′=0, so y=Ce<sup>−x</sup>. Use C=3.<span class="final">Particular solution: y=3e<sup>−x</sup>.</span></div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P7 · Verify</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">Does y=e<sup>2x</sup> solve y′=2y?</div>
+              <div class="answer">Differentiate: y′=2e<sup>2x</sup>. Also 2y=2e<sup>2x</sup>. Both sides match.<span class="final">Yes, it is a solution.</span></div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P8 · Euler step</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">y′=x+y, y(0)=2, h=0.1. Find y₁.</div>
+              <div class="answer">Slope at (0,2) is 0+2=2. Then y₁=2+0.1(2).<span class="final">x₁=0.1 and y₁=2.2.</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="ready">
+          <div class="section-head">
+            <div class="section-number">✓</div>
+            <div>
+              <h2>Question 3 readiness check</h2>
+              <p class="section-subtitle">Your checked items are saved automatically in this browser.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>I know what makes a differential equation first order.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I understand general and particular solutions.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can use an initial condition to determine \(C\).</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can verify a solution by differentiation.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can recognize and solve a separable equation.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can put a linear equation in standard form.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can identify \(P(x)\) and \(Q(x)\) with the correct signs.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can calculate the integrating factor \(\mu=e^{∫Pdx}\).</span></label>
+              <label class="check-row"><input type="checkbox"><span>I understand the basic meaning of a slope field.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can perform Euler’s method one step at a time.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can solve all eight practice questions without revealing the answers.</span></label>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          Question 3 · First-Order Differential Equations ·
+          <a href="lecture-12-first-order-differential-equations.pdf">Lecture 12</a>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll(".reveal").forEach(button => {
+      button.addEventListener("click", () => {
+        const answer = button.closest(".problem").querySelector(".answer");
+        const open = answer.classList.toggle("show");
+        button.textContent = open ? "Hide solution" : "Reveal solution";
+      });
+    });
+
+    const links = [...document.querySelectorAll("nav a")];
+    const sections = [...document.querySelectorAll("section[id]")];
+
+    const observer = new IntersectionObserver(entries => {
+      const current = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!current) return;
+      links.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${current.target.id}`);
+      });
+    }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.15, 0.5] });
+
+    sections.forEach(section => observer.observe(section));
+
+    const checks = [...document.querySelectorAll(".check-row input")];
+    const storageKey = "question-3-first-order-differential-equations-readiness";
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      if (Array.isArray(saved)) {
+        checks.forEach((box, index) => box.checked = Boolean(saved[index]));
+      }
+    } catch (_) {
+      localStorage.removeItem(storageKey);
+    }
+
+    checks.forEach(box => {
+      box.addEventListener("change", () => {
+        localStorage.setItem(storageKey, JSON.stringify(checks.map(item => item.checked)));
+      });
+    });
+  </script>
+</body>
+</html>

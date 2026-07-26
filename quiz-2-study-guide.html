@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A focused study guide for Quiz 2: integrals, improper integrals, and first-order differential equations.">
+  <title>Quiz 2 · Study Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f5f0;
+      --surface: #fffdf9;
+      --surface-soft: #f1eee7;
+      --ink: #1f2521;
+      --muted: #69706a;
+      --line: #e3ded3;
+      --green: #255f4a;
+      --green-soft: #e5eee9;
+      --ochre: #b46b2b;
+      --red: #a74638;
+      --shadow: 0 18px 60px rgba(40, 44, 38, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 36px;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 4%, rgba(37, 95, 74, 0.07), transparent 25rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.7;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1240px, calc(100% - 64px));
+      min-height: 100vh;
+      margin: 32px auto;
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 38px 28px;
+      background: #f2efe8;
+      border-right: 1px solid var(--line);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 38px;
+      font-family: "Newsreader", serif;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      color: #fff;
+      background: var(--green);
+      border-radius: 10px 10px 10px 3px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .nav-group {
+      margin: 26px 0;
+    }
+
+    .nav-label {
+      margin: 0 0 9px 12px;
+      color: #93968f;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav-link {
+      display: block;
+      margin: 3px 0;
+      padding: 9px 12px;
+      color: var(--muted);
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.35;
+      text-decoration: none;
+      transition: 160ms ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--green);
+      background: rgba(37, 95, 74, 0.09);
+    }
+
+    .progress-panel {
+      margin-top: 34px;
+      padding: 17px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(37, 95, 74, 0.12);
+      border-radius: 14px;
+    }
+
+    .progress-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #progressCount {
+      color: var(--green);
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    .progress-track {
+      height: 7px;
+      background: #dedbd3;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--green);
+      border-radius: inherit;
+      transition: width 240ms ease;
+    }
+
+    .reset-button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 7px 9px;
+      color: #81847e;
+      background: transparent;
+      border: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .reset-button:hover {
+      color: var(--red);
+      background: rgba(167, 70, 56, 0.06);
+    }
+
+    main {
+      min-width: 0;
+      padding-bottom: 80px;
+    }
+
+    .hero {
+      position: relative;
+      padding: 72px 70px 58px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero::after {
+      content: "∫";
+      position: absolute;
+      top: -85px;
+      right: 34px;
+      color: rgba(37, 95, 74, 0.055);
+      font-family: Georgia, serif;
+      font-size: 310px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 25px;
+      height: 2px;
+      background: var(--green);
+    }
+
+    h1,
+    h2 {
+      font-family: "Newsreader", Georgia, serif;
+      letter-spacing: -0.035em;
+    }
+
+    h1 {
+      max-width: 680px;
+      margin: 0;
+      font-size: clamp(48px, 6vw, 76px);
+      font-weight: 600;
+      line-height: 0.98;
+    }
+
+    h1 em {
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .hero-copy {
+      max-width: 610px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .quiz-map {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .quiz-pill {
+      position: relative;
+      padding: 16px 16px 15px 48px;
+      color: #4f5751;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .quiz-pill span {
+      position: absolute;
+      top: 16px;
+      left: 15px;
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      color: #fff;
+      background: var(--green);
+      border-radius: 50%;
+      font-weight: 700;
+    }
+
+    .content {
+      max-width: 900px;
+      padding: 50px 70px 0;
+    }
+
+    .topic {
+      margin-bottom: 72px;
+    }
+
+    .topic-heading {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .topic-number {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      color: var(--green);
+      background: var(--green-soft);
+      border-radius: 13px;
+      font-family: "DM Mono", monospace;
+      font-weight: 500;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .section-note {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      margin: 16px 0;
+      padding: 28px 30px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(38, 45, 39, 0.035);
+    }
+
+    .card.tint {
+      background: #f7f5ef;
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .card h3::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: var(--ochre);
+      border-radius: 50%;
+    }
+
+    .resource-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .resource-list a {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 12px;
+      color: #4c544e;
+      background: #fff;
+      border: 1px solid #e7e2d8;
+      border-radius: 9px;
+      font-size: 13px;
+      text-decoration: none;
+      transition: 150ms ease;
+    }
+
+    .resource-list a:hover {
+      color: var(--green);
+      border-color: rgba(37, 95, 74, 0.35);
+      transform: translateX(3px);
+    }
+
+    .pdf-icon {
+      color: var(--red);
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 3px;
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 9px 8px;
+      border-radius: 8px;
+      color: #4f5751;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 150ms ease;
+    }
+
+    .check-row:hover {
+      background: rgba(37, 95, 74, 0.045);
+    }
+
+    .check-row input {
+      appearance: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      background: #fff;
+      border: 1.5px solid #b9bcb5;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 150ms ease;
+    }
+
+    .check-row input:checked {
+      background: var(--green);
+      border-color: var(--green);
+      box-shadow: inset 0 0 0 3px #fff;
+    }
+
+    .check-row:has(input:checked) span {
+      color: #92968f;
+      text-decoration: line-through;
+      text-decoration-color: #b9bcb5;
+    }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .formula {
+      padding: 18px;
+      background: #202a25;
+      border-radius: 12px;
+      color: #f4f2eb;
+    }
+
+    .formula small {
+      display: block;
+      margin-bottom: 8px;
+      color: #a9b9b0;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .math {
+      overflow-x: auto;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 19px;
+      white-space: nowrap;
+    }
+
+    .math sup,
+    .math sub {
+      font-size: 0.65em;
+    }
+
+    .fraction {
+      display: inline-grid;
+      grid-template-rows: auto auto;
+      margin: 0 0.16em;
+      vertical-align: middle;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .fraction > span:first-child {
+      padding: 0 0.2em 0.1em;
+      border-bottom: 1px solid currentColor;
+    }
+
+    .fraction > span:last-child {
+      padding: 0.1em 0.2em 0;
+    }
+
+    .steps {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      min-height: 35px;
+      margin: 0;
+      padding: 4px 0 15px 44px;
+      color: #515a53;
+      counter-increment: step;
+      font-size: 14px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: grid;
+      place-items: center;
+      width: 27px;
+      height: 27px;
+      color: var(--green);
+      background: var(--green-soft);
+      border-radius: 50%;
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .steps li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 28px;
+      bottom: 0;
+      left: 13px;
+      width: 1px;
+      background: #d8dfda;
+    }
+
+    .callout {
+      margin: 16px 0;
+      padding: 18px 22px;
+      color: #4b544d;
+      background: #f3eadf;
+      border-left: 4px solid var(--ochre);
+      border-radius: 4px 12px 12px 4px;
+      font-size: 14px;
+    }
+
+    .test-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .test-table th,
+    .test-table td {
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .test-table th {
+      color: #8b8f88;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .status-good {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .status-bad {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .study-order {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .study-step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 11px;
+      align-items: center;
+      padding: 14px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: #515952;
+      font-size: 13px;
+    }
+
+    .study-step b {
+      color: var(--ochre);
+      font-family: "DM Mono", monospace;
+      font-size: 12px;
+    }
+
+    footer {
+      margin-top: 70px;
+      padding-top: 24px;
+      color: #9a9d97;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        width: 100%;
+        margin: 0;
+        grid-template-columns: 1fr;
+        border: 0;
+        border-radius: 0;
+      }
+
+      .sidebar {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: 20px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .brand,
+      .nav-group {
+        display: none;
+      }
+
+      .progress-panel {
+        margin: 0;
+      }
+
+      .hero,
+      .content {
+        padding-right: 28px;
+        padding-left: 28px;
+      }
+
+      .quiz-map,
+      .formula-grid,
+      .study-order {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">Q2</span>
+        Study Guide
+      </div>
+
+      <nav aria-label="Study guide sections">
+        <div class="nav-group">
+          <p class="nav-label">Overview</p>
+          <a class="nav-link active" href="#overview">Quiz structure</a>
+          <a class="nav-link" href="#study-order">Study order</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Quiz topics</p>
+          <a class="nav-link" href="#integrals">1. Integrals</a>
+          <a class="nav-link" href="#improper">2. Improper integrals</a>
+          <a class="nav-link" href="#differential">3. Differential equations</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Finish</p>
+          <a class="nav-link" href="#self-test">Final self-test</a>
+        </div>
+      </nav>
+
+      <div class="progress-panel">
+        <div class="progress-row">
+          <span>Study progress</span>
+          <span id="progressCount">0%</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <button class="reset-button" id="resetProgress" type="button">Reset checked items</button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="hero" id="overview">
+        <div class="eyebrow">Math for Tech · Quiz 2</div>
+        <h1>A focused guide to <em>study well.</em></h1>
+        <p class="hero-copy">
+          Three topics, one clear path. Work through the checklists, learn the essential
+          formulas, and practise each solution method until it feels automatic.
+        </p>
+
+        <div class="quiz-map">
+          <div class="quiz-pill"><span>1</span><strong>Two parts</strong><br>Indefinite + definite integral</div>
+          <div class="quiz-pill"><span>2</span><strong>One problem</strong><br>Improper integral</div>
+          <div class="quiz-pill"><span>3</span><strong>One problem</strong><br>First-order differential equation</div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="topic" id="integrals">
+          <div class="topic-heading">
+            <div class="topic-number">01</div>
+            <div>
+              <h2>Indefinite &amp; definite integrals</h2>
+              <p class="section-note">Build the antiderivative first; then treat the endpoints correctly.</p>
+            </div>
+          </div>
+
+          <div class="card tint">
+            <h3>Files to study</h3>
+            <ul class="resource-list">
+              <li><a href="indefinite-integrals-table-and-homework.pdf"><span class="pdf-icon">PDF</span>Table of indefinite integrals and additional homework</a></li>
+              <li><a href="lecture-07-integration.pdf"><span class="pdf-icon">PDF</span>Lecture 7 · Introduction to integration</a></li>
+              <li><a href="lecture-08-integration-by-substitution.pdf"><span class="pdf-icon">PDF</span>Lecture 8 · Integration by substitution</a></li>
+              <li><a href="lecture-09-additional-integration-topics.pdf"><span class="pdf-icon">PDF</span>Lecture 9 · Additional integration topics</a></li>
+              <li><a href="lecture-10-definite-integrals.pdf"><span class="pdf-icon">PDF</span>Lecture 10 · Area and the definite integral</a></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Essential formulas</h3>
+            <div class="formula-grid">
+              <div class="formula">
+                <small>Power rule · n ≠ −1</small>
+                <div class="math">∫ x<sup>n</sup> dx = <span class="fraction"><span>x<sup>n+1</sup></span><span>n+1</span></span> + C</div>
+              </div>
+              <div class="formula">
+                <small>Logarithmic form</small>
+                <div class="math">∫ <span class="fraction"><span>1</span><span>x</span></span> dx = ln|x| + C</div>
+              </div>
+              <div class="formula">
+                <small>Integration by parts</small>
+                <div class="math">∫ u dv = uv − ∫ v du</div>
+              </div>
+              <div class="formula">
+                <small>Fundamental theorem</small>
+                <div class="math">∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Indefinite integral checklist</h3>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Know the basic integration formulas.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Always include the constant of integration, <strong>+C</strong>.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Apply the sum and constant-multiple rules.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Use substitution when the integral contains a function and its derivative.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Use integration by parts when the structure calls for it.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Check the answer by differentiating it.</span></label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Definite integral checklist</h3>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Find an antiderivative F(x).</span></label>
+              <label class="check-row"><input type="checkbox"><span>Evaluate upper limit minus lower limit: F(b) − F(a).</span></label>
+              <label class="check-row"><input type="checkbox"><span>Do not add +C to the final answer.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Know how substitution changes the limits of integration.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Understand signed area and accumulated change.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Practise area and application problems from Lecture 10.</span></label>
+            </div>
+          </div>
+
+          <div class="card tint">
+            <h3>Method for Question 1</h3>
+            <ol class="steps">
+              <li>Identify whether the integral is indefinite or definite.</li>
+              <li>Simplify the integrand if possible.</li>
+              <li>Choose the correct integration rule or technique.</li>
+              <li>Find the antiderivative.</li>
+              <li>Add <strong>+C</strong> for an indefinite integral, or evaluate <strong>F(b) − F(a)</strong> for a definite integral.</li>
+              <li>Check signs, arithmetic, and parentheses.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="topic" id="improper">
+          <div class="topic-heading">
+            <div class="topic-number">02</div>
+            <div>
+              <h2>Improper integrals</h2>
+              <p class="section-note">The key move is rewriting the problem as a limit.</p>
+            </div>
+          </div>
+
+          <div class="card tint">
+            <h3>Files to study</h3>
+            <ul class="resource-list">
+              <li><a href="lecture-09-additional-integration-topics.pdf"><span class="pdf-icon">PDF</span>Lecture 9 · Additional integration topics</a></li>
+              <li><a href="lecture-11-improper-integrals.pdf"><span class="pdf-icon">PDF</span>Lecture 11 · Section 7.4: Improper Integrals</a></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Definition to remember</h3>
+            <div class="formula">
+              <small>Infinite upper boundary</small>
+              <div class="math">∫<sub>a</sub><sup>∞</sup> f(x) dx = lim<sub>b→∞</sub> ∫<sub>a</sub><sup>b</sup> f(x) dx</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Checklist</h3>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Recognize an infinite interval.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Recognize an integrand that becomes unbounded.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Replace the problematic boundary with a variable.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Rewrite the integral as a limit before calculating.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Evaluate the ordinary definite integral, then the limit.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Clearly state whether the answer converges or diverges.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Split at an internal discontinuity and test both parts.</span></label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>The p-integral tests</h3>
+            <table class="test-table">
+              <thead>
+                <tr>
+                  <th>Integral</th>
+                  <th>Converges</th>
+                  <th>Diverges</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>∫<sub>1</sub><sup>∞</sup> 1/x<sup>p</sup> dx</td>
+                  <td class="status-good">p &gt; 1</td>
+                  <td class="status-bad">p ≤ 1</td>
+                </tr>
+                <tr>
+                  <td>∫<sub>0</sub><sup>1</sup> 1/x<sup>p</sup> dx</td>
+                  <td class="status-good">p &lt; 1</td>
+                  <td class="status-bad">p ≥ 1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            <strong>Exam habit:</strong> never jump directly to an answer. Show the limit, calculate it,
+            and finish with the word <strong>convergent</strong> or <strong>divergent</strong>.
+          </div>
+
+          <div class="card tint">
+            <h3>Method for Question 2</h3>
+            <ol class="steps">
+              <li>Identify why the integral is improper.</li>
+              <li>Rewrite it using the correct limit.</li>
+              <li>Find the antiderivative.</li>
+              <li>Evaluate the limit.</li>
+              <li>State <strong>convergent</strong> with its value, or <strong>divergent</strong>.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="topic" id="differential">
+          <div class="topic-heading">
+            <div class="topic-number">03</div>
+            <div>
+              <h2>First-order differential equations</h2>
+              <p class="section-note">Recognize the equation type, separate carefully, then use the initial condition.</p>
+            </div>
+          </div>
+
+          <div class="card tint">
+            <h3>File to study</h3>
+            <ul class="resource-list">
+              <li><a href="lecture-12-first-order-differential-equations.pdf"><span class="pdf-icon">PDF</span>Lecture 12 · First-Order Differential Equations</a></li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Core forms</h3>
+            <div class="formula-grid">
+              <div class="formula">
+                <small>General first-order equation</small>
+                <div class="math"><span class="fraction"><span>dy</span><span>dx</span></span> = f(x, y)</div>
+              </div>
+              <div class="formula">
+                <small>Separable equation</small>
+                <div class="math"><span class="fraction"><span>dy</span><span>dx</span></span> = g(x)h(y)</div>
+              </div>
+              <div class="formula">
+                <small>Euler · next x</small>
+                <div class="math">x<sub>n+1</sub> = x<sub>n</sub> + h</div>
+              </div>
+              <div class="formula">
+                <small>Euler · next y</small>
+                <div class="math">y<sub>n+1</sub> = y<sub>n</sub> + h f(x<sub>n</sub>, y<sub>n</sub>)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Checklist</h3>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Understand the general form dy/dx = f(x,y).</span></label>
+              <label class="check-row"><input type="checkbox"><span>Identify the order of a differential equation.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Verify a proposed solution by substitution.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Understand initial conditions and initial-value problems.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Read and sketch slope fields.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Use Euler's method if it is included in the quiz.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Recognize and solve separable equations.</span></label>
+              <label class="check-row"><input type="checkbox"><span>Apply the initial condition to find the constant.</span></label>
+            </div>
+          </div>
+
+          <div class="card tint">
+            <h3>Separable-equation method</h3>
+            <ol class="steps">
+              <li>Separate the variables: put all y terms with dy and all x terms with dx.</li>
+              <li>Integrate both sides.</li>
+              <li>Simplify and solve for y, if possible.</li>
+              <li>Use the initial condition to determine C.</li>
+              <li>Substitute the solution into the original equation to check it.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="topic" id="study-order">
+          <div class="topic-heading">
+            <div class="topic-number">→</div>
+            <div>
+              <h2>Recommended study order</h2>
+              <p class="section-note">Move from core rules to timed exam practice.</p>
+            </div>
+          </div>
+
+          <div class="study-order">
+            <div class="study-step"><b>01</b><span>Review the indefinite integral table and basic rules.</span></div>
+            <div class="study-step"><b>02</b><span>Practise substitution from Lectures 7 and 8.</span></div>
+            <div class="study-step"><b>03</b><span>Practise definite integrals and the Fundamental Theorem.</span></div>
+            <div class="study-step"><b>04</b><span>Study improper integrals and convergence.</span></div>
+            <div class="study-step"><b>05</b><span>Study differential equations from Lecture 12.</span></div>
+            <div class="study-step"><b>06</b><span>Solve one timed problem from every quiz section.</span></div>
+            <div class="study-step"><b>07</b><span>Review mistakes and repeat your weakest topic.</span></div>
+          </div>
+        </section>
+
+        <section class="topic" id="self-test">
+          <div class="topic-heading">
+            <div class="topic-number">✓</div>
+            <div>
+              <h2>Final self-test</h2>
+              <p class="section-note">If every box is honest and checked, you are ready.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>I can solve an indefinite integral and remember +C.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can solve a definite integral using F(b) − F(a).</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can rewrite an improper integral as a limit.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can decide whether an improper integral converges or diverges.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can solve a separable first-order differential equation.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can use an initial condition to find the constant.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can apply Euler's method if asked.</span></label>
+            </div>
+          </div>
+        </section>
+
+        <footer>Quiz 2 Study Guide · Math for Tech · Your progress is saved in this browser.</footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const checkboxes = [...document.querySelectorAll('.check-row input')];
+    const progressFill = document.getElementById('progressFill');
+    const progressCount = document.getElementById('progressCount');
+    const storageKey = 'quiz2-study-progress';
+
+    function updateProgress() {
+      const completed = checkboxes.filter(box => box.checked).length;
+      const percent = checkboxes.length ? Math.round((completed / checkboxes.length) * 100) : 0;
+      progressFill.style.width = `${percent}%`;
+      progressCount.textContent = `${percent}%`;
+      localStorage.setItem(storageKey, JSON.stringify(checkboxes.map(box => box.checked)));
+    }
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      if (Array.isArray(saved)) {
+        checkboxes.forEach((box, index) => {
+          box.checked = Boolean(saved[index]);
+        });
+      }
+    } catch (_) {
+      localStorage.removeItem(storageKey);
+    }
+
+    checkboxes.forEach(box => box.addEventListener('change', updateProgress));
+
+    document.getElementById('resetProgress').addEventListener('click', () => {
+      checkboxes.forEach(box => {
+        box.checked = false;
+      });
+      updateProgress();
+    });
+
+    const sections = [...document.querySelectorAll('section[id], header[id]')];
+    const navLinks = [...document.querySelectorAll('.nav-link')];
+
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${visible.target.id}`);
+      });
+    }, {
+      rootMargin: '-20% 0px -65% 0px',
+      threshold: [0, 0.1, 0.5]
+    });
+
+    sections.forEach(section => observer.observe(section));
+    updateProgress();
+  </script>
+</body>
+</html>

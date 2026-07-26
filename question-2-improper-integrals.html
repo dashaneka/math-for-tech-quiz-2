@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Focused preparation for Quiz 2 Question 2: improper integrals, limits, convergence, and divergence.">
+  <title>Question 2 · Improper Integrals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f4f4f0;
+      --surface: #fffefa;
+      --sidebar: #eeefea;
+      --ink: #202521;
+      --body: #545b55;
+      --muted: #858b85;
+      --line: #dfe1d9;
+      --blue: #315f71;
+      --blue-soft: #e3edf0;
+      --green: #39705b;
+      --green-soft: #e5f0ea;
+      --red: #a84747;
+      --red-soft: #f5e7e6;
+      --amber: #ae6d32;
+      --amber-soft: #f8ecdf;
+      --dark: #202826;
+      --shadow: 0 20px 65px rgba(37, 42, 38, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 28px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 7% 3%, rgba(49, 95, 113, 0.09), transparent 27rem),
+        var(--paper);
+      font-family: "DM Sans", sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      width: min(1220px, calc(100% - 56px));
+      min-height: 100vh;
+      margin: 28px auto;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: clip;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 40px 30px;
+      background: var(--sidebar);
+      border-right: 1px solid var(--line);
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      font-family: "Newsreader", serif;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      color: #fff;
+      background: var(--blue);
+      border-radius: 11px 11px 11px 3px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .nav-group { margin: 25px 0; }
+    .nav-label {
+      margin: 0 0 8px 11px;
+      color: #a1a59f;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      display: block;
+      margin: 2px 0;
+      padding: 8px 11px;
+      color: #757b75;
+      border-radius: 8px;
+      font-size: 12.5px;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: 150ms ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--blue);
+      background: rgba(49, 95, 113, 0.09);
+    }
+
+    .side-links {
+      display: grid;
+      gap: 8px;
+      margin-top: 34px;
+    }
+
+    .side-links a {
+      padding: 9px 11px;
+      color: var(--blue);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(49,95,113,0.15);
+      border-radius: 9px;
+      font-size: 11px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    main { min-width: 0; padding-bottom: 80px; }
+
+    header {
+      position: relative;
+      padding: 70px 68px 55px;
+      background: linear-gradient(180deg, #fafbf8, var(--surface));
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "∞";
+      position: absolute;
+      top: -45px;
+      right: 30px;
+      color: rgba(49, 95, 113, 0.06);
+      font-family: Georgia, serif;
+      font-size: 260px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 15px;
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 26px;
+      height: 2px;
+      background: var(--blue);
+    }
+
+    h1, h2 {
+      font-family: "Newsreader", Georgia, serif;
+      letter-spacing: -0.035em;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0;
+      font-size: clamp(48px, 6vw, 70px);
+      font-weight: 600;
+      line-height: 0.98;
+    }
+
+    h1 em { color: var(--blue); font-weight: 600; }
+
+    .intro {
+      position: relative;
+      z-index: 1;
+      max-width: 630px;
+      margin: 21px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .exam-card {
+      position: relative;
+      z-index: 1;
+      max-width: 650px;
+      margin-top: 28px;
+      padding: 16px 18px;
+      color: var(--body);
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .exam-card strong { color: var(--blue); }
+
+    .content {
+      max-width: 900px;
+      padding: 50px 68px 0;
+    }
+
+    section { margin-bottom: 68px; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 15px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .section-number {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-radius: 13px;
+      font-family: "DM Mono", monospace;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 35px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .section-subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      margin: 15px 0;
+      padding: 27px 29px;
+      background: #fcfbf8;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      box-shadow: 0 7px 22px rgba(42, 42, 36, 0.025);
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .card h3::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: var(--amber);
+      border-radius: 50%;
+    }
+
+    .card p { margin: 8px 0; color: var(--body); }
+    strong { color: var(--ink); }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .type-card {
+      padding: 21px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .type-card b {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--blue);
+      font-size: 13px;
+    }
+
+    .type-card p {
+      margin: 7px 0 0;
+      color: var(--body);
+      font-size: 12.5px;
+    }
+
+    .formula {
+      margin: 13px 0;
+      padding: 18px 21px;
+      color: #f4f5ef;
+      background: var(--dark);
+      border-radius: 11px;
+      overflow-x: auto;
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 20px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .formula small {
+      display: block;
+      margin-bottom: 4px;
+      color: #a5b7b0;
+      font-family: "DM Sans", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .formula sup, .formula sub,
+    .math-line sup, .math-line sub,
+    .problem-math sup, .problem-math sub { font-size: 0.65em; }
+
+    .memory {
+      margin: 16px 0;
+      padding: 17px 20px;
+      color: #42574d;
+      background: var(--green-soft);
+      border-left: 4px solid var(--green);
+      border-radius: 4px 11px 11px 4px;
+      font-size: 13px;
+    }
+
+    .warning {
+      margin: 16px 0;
+      padding: 17px 20px;
+      color: #68472e;
+      background: var(--amber-soft);
+      border-left: 4px solid var(--amber);
+      border-radius: 4px 11px 11px 4px;
+      font-size: 13px;
+    }
+
+    .steps {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      min-height: 41px;
+      padding: 3px 0 15px 43px;
+      color: var(--body);
+      counter-increment: step;
+      font-size: 14px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-radius: 50%;
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .worked {
+      margin: 17px 0;
+      padding: 23px 25px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .worked-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .worked-tag {
+      color: var(--blue);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .worked-title { color: var(--muted); font-size: 11px; }
+
+    .math-line {
+      padding: 8px 0;
+      color: #343c37;
+      border-bottom: 1px dashed var(--line);
+      font-family: Georgia, serif;
+      font-size: 18px;
+    }
+
+    .math-line:last-child { border-bottom: 0; }
+    .math-line.answer-good { color: var(--green); font-weight: 700; }
+    .math-line.answer-bad { color: var(--red); font-weight: 700; }
+
+    .label {
+      display: inline-block;
+      min-width: 83px;
+      color: var(--muted);
+      font-family: "DM Sans", sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    th {
+      color: #fff;
+      background: var(--dark);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    td { color: var(--body); }
+    tr:last-child td { border-bottom: 0; }
+
+    .good { color: var(--green); font-weight: 700; }
+    .bad { color: var(--red); font-weight: 700; }
+
+    .practice {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .problem {
+      padding: 20px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .problem-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .problem-number {
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .problem-math {
+      margin: 15px 0;
+      color: #303833;
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    .reveal {
+      padding: 7px 10px;
+      color: var(--blue);
+      background: var(--blue-soft);
+      border: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .answer {
+      display: none;
+      margin-top: 13px;
+      padding-top: 13px;
+      color: var(--body);
+      border-top: 1px solid var(--line);
+      font-size: 12.5px;
+    }
+
+    .answer.show { display: block; }
+    .answer .final { display: block; margin-top: 5px; font-weight: 700; }
+    .answer .final.converges { color: var(--green); }
+    .answer .final.diverges { color: var(--red); }
+
+    .checklist { display: grid; gap: 4px; }
+    .check-row {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      padding: 8px;
+      color: var(--body);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .check-row:hover { background: #f1f3ef; }
+
+    .check-row input {
+      appearance: none;
+      width: 17px;
+      height: 17px;
+      margin: 3px 0 0;
+      background: #fff;
+      border: 1.5px solid #adb1ab;
+      border-radius: 4px;
+    }
+
+    .check-row input:checked {
+      background: var(--blue);
+      border-color: var(--blue);
+      box-shadow: inset 0 0 0 3px #fff;
+    }
+
+    .check-row:has(input:checked) span {
+      color: #999d98;
+      text-decoration: line-through;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 22px;
+      color: #a0a39e;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      .page {
+        width: 100%;
+        margin: 0;
+        grid-template-columns: 1fr;
+        border: 0;
+        border-radius: 0;
+      }
+      aside { display: none; }
+      header, .content { padding-right: 27px; padding-left: 27px; }
+      .type-grid, .practice { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside>
+      <div class="brand"><span class="brand-mark">Q2</span>Improper Integrals</div>
+      <nav>
+        <div class="nav-group">
+          <p class="nav-label">Understand</p>
+          <a class="active" href="#meaning">What makes it improper?</a>
+          <a href="#limits">Infinity becomes a limit</a>
+          <a href="#convergence">Convergent or divergent?</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Learn the method</p>
+          <a href="#right-infinite">Infinite on the right</a>
+          <a href="#left-infinite">Infinite on the left</a>
+          <a href="#both-infinite">Both directions</a>
+          <a href="#p-test">The p-test</a>
+        </div>
+        <div class="nav-group">
+          <p class="nav-label">Practice</p>
+          <a href="#exam-method">Exam method</a>
+          <a href="#practice">Practice questions</a>
+          <a href="#ready">Ready checklist</a>
+        </div>
+      </nav>
+      <div class="side-links">
+        <a href="lecture-11-improper-integrals.pdf">Open Lecture 11</a>
+        <a href="quiz-2-study-guide.html">Full Quiz 2 guide</a>
+      </div>
+    </aside>
+
+    <main>
+      <header>
+        <div class="eyebrow">Quiz 2 · Question 2</div>
+        <h1>Improper integrals, made <em>finite enough to solve.</em></h1>
+        <p class="intro">
+          Infinity is not a number you substitute. Replace it with a temporary boundary,
+          solve an ordinary definite integral, and then take a limit.
+        </p>
+        <div class="exam-card">
+          <strong>Your final line must say one of two things:</strong>
+          “The integral converges to …” or “The integral diverges.”
+        </div>
+      </header>
+
+      <div class="content">
+        <section id="meaning">
+          <div class="section-head">
+            <div class="section-number">01</div>
+            <div>
+              <h2>What makes an integral improper?</h2>
+              <p class="section-subtitle">Something about its interval or its function is not finite.</p>
+            </div>
+          </div>
+
+          <div class="type-grid">
+            <div class="type-card">
+              <b>Type 1 · Infinite interval</b>
+              <div class="formula">∫<sub>a</sub><sup>∞</sup> f(x) dx</div>
+              <p>The interval continues forever to the right, left, or both directions.</p>
+            </div>
+            <div class="type-card">
+              <b>Type 2 · Unbounded function</b>
+              <div class="formula">∫<sub>0</sub><sup>1</sup> 1/√x dx</div>
+              <p>The function becomes infinite at an endpoint or at a point inside the interval.</p>
+            </div>
+          </div>
+
+          <div class="memory">
+            For your Lecture 11 material, the main focus is <strong>infinite intervals</strong>.
+            The same big idea always applies: replace the problematic part with a limit.
+          </div>
+        </section>
+
+        <section id="limits">
+          <div class="section-head">
+            <div class="section-number">02</div>
+            <div>
+              <h2>Infinity becomes a limit</h2>
+              <p class="section-subtitle">Never substitute ∞ directly into an antiderivative.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Infinite upper boundary</h3>
+            <div class="formula">∫<sub>a</sub><sup>∞</sup> f(x) dx = lim<sub>b→∞</sub> ∫<sub>a</sub><sup>b</sup> f(x) dx</div>
+            <p>Replace \(\infty\) with \(b\), solve from \(a\) to \(b\), then ask what happens as \(b\) grows without bound.</p>
+          </div>
+
+          <div class="card">
+            <h3>Infinite lower boundary</h3>
+            <div class="formula">∫<sub>−∞</sub><sup>b</sup> f(x) dx = lim<sub>a→−∞</sub> ∫<sub>a</sub><sup>b</sup> f(x) dx</div>
+            <p>Replace \(−\infty\) with \(a\), solve from \(a\) to the fixed upper limit, then take \(a→−\infty\).</p>
+          </div>
+
+          <div class="warning">
+            <strong>Infinity is not a number.</strong> Do not write \(F(∞)\). Write a limit such as \(\lim_{b→∞}F(b)\).
+          </div>
+        </section>
+
+        <section id="convergence">
+          <div class="section-head">
+            <div class="section-number">03</div>
+            <div>
+              <h2>Convergent or divergent?</h2>
+              <p class="section-subtitle">The final limit decides the answer.</p>
+            </div>
+          </div>
+
+          <div class="type-grid">
+            <div class="type-card">
+              <b class="good">Convergent</b>
+              <p>The limit exists and equals a finite number.</p>
+              <div class="formula">lim<sub>b→∞</sub> I(b) = 1</div>
+              <p>Final statement: “The integral converges to 1.”</p>
+            </div>
+            <div class="type-card">
+              <b class="bad">Divergent</b>
+              <p>The limit becomes \(∞\), \(−∞\), or does not exist.</p>
+              <div class="formula">lim<sub>b→∞</sub> ln b = ∞</div>
+              <p>Final statement: “The integral diverges.”</p>
+            </div>
+          </div>
+
+          <div class="memory">
+            A function approaching zero is <strong>not enough</strong> to guarantee convergence.
+            Both \(1/x\) and \(1/x²\) approach zero, but only the second integral converges on \([1,∞)\).
+          </div>
+        </section>
+
+        <section id="right-infinite">
+          <div class="section-head">
+            <div class="section-number">04</div>
+            <div>
+              <h2>Infinite interval on the right</h2>
+              <p class="section-subtitle">Replace the upper infinity with \(b\), then let \(b→∞\).</p>
+            </div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Lecture 11 · Core example</span>
+              <span class="worked-title">A convergent integral</span>
+            </div>
+            <div class="math-line">∫<sub>1</sub><sup>∞</sup> 1/x² dx</div>
+            <div class="math-line"><span class="label">Rewrite</span>lim<sub>b→∞</sub> ∫<sub>1</sub><sup>b</sup> x<sup>−2</sup> dx</div>
+            <div class="math-line"><span class="label">Integrate</span>lim<sub>b→∞</sub> [−1/x]<sub>1</sub><sup>b</sup></div>
+            <div class="math-line"><span class="label">Evaluate</span>lim<sub>b→∞</sub> (−1/b − (−1))</div>
+            <div class="math-line">= lim<sub>b→∞</sub> (1 − 1/b)</div>
+            <div class="math-line">As b→∞, 1/b→0.</div>
+            <div class="math-line answer-good">Answer: 1. The improper integral converges.</div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Lecture 11 · Core example</span>
+              <span class="worked-title">A divergent integral</span>
+            </div>
+            <div class="math-line">∫<sub>2</sub><sup>∞</sup> 1/x dx</div>
+            <div class="math-line"><span class="label">Rewrite</span>lim<sub>b→∞</sub> ∫<sub>2</sub><sup>b</sup> 1/x dx</div>
+            <div class="math-line"><span class="label">Integrate</span>lim<sub>b→∞</sub> [ln x]<sub>2</sub><sup>b</sup></div>
+            <div class="math-line"><span class="label">Evaluate</span>lim<sub>b→∞</sub> (ln b − ln 2)</div>
+            <div class="math-line">As b→∞, ln b→∞.</div>
+            <div class="math-line answer-bad">Answer: the improper integral diverges.</div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Lecture 11 · Example</span>
+              <span class="worked-title">Exponential decay</span>
+            </div>
+            <div class="math-line">∫<sub>0</sub><sup>∞</sup> e<sup>−x/2</sup> dx</div>
+            <div class="math-line">= lim<sub>b→∞</sub> [−2e<sup>−x/2</sup>]<sub>0</sub><sup>b</sup></div>
+            <div class="math-line">= lim<sub>b→∞</sub> (−2e<sup>−b/2</sup> + 2)</div>
+            <div class="math-line">As b→∞, e<sup>−b/2</sup>→0.</div>
+            <div class="math-line answer-good">Answer: 2. The improper integral converges.</div>
+          </div>
+        </section>
+
+        <section id="left-infinite">
+          <div class="section-head">
+            <div class="section-number">05</div>
+            <div>
+              <h2>Infinite interval on the left</h2>
+              <p class="section-subtitle">Replace \(−∞\) with \(a\), then let \(a→−∞\).</p>
+            </div>
+          </div>
+
+          <div class="worked">
+            <div class="worked-head">
+              <span class="worked-tag">Worked example</span>
+              <span class="worked-title">Left-infinite exponential</span>
+            </div>
+            <div class="math-line">∫<sub>−∞</sub><sup>0</sup> e<sup>x</sup> dx</div>
+            <div class="math-line"><span class="label">Rewrite</span>lim<sub>a→−∞</sub> ∫<sub>a</sub><sup>0</sup> e<sup>x</sup> dx</div>
+            <div class="math-line"><span class="label">Integrate</span>lim<sub>a→−∞</sub> [e<sup>x</sup>]<sub>a</sub><sup>0</sup></div>
+            <div class="math-line"><span class="label">Evaluate</span>lim<sub>a→−∞</sub> (1 − e<sup>a</sup>)</div>
+            <div class="math-line">As a→−∞, e<sup>a</sup>→0.</div>
+            <div class="math-line answer-good">Answer: 1. The improper integral converges.</div>
+          </div>
+        </section>
+
+        <section id="both-infinite">
+          <div class="section-head">
+            <div class="section-number">06</div>
+            <div>
+              <h2>Infinite in both directions</h2>
+              <p class="section-subtitle">Split the integral into two separate improper integrals.</p>
+            </div>
+          </div>
+
+          <div class="formula">∫<sub>−∞</sub><sup>∞</sup> f(x) dx = ∫<sub>−∞</sub><sup>c</sup> f(x) dx + ∫<sub>c</sub><sup>∞</sup> f(x) dx</div>
+
+          <div class="card">
+            <h3>The rule that matters</h3>
+            <p>Usually choose \(c=0\). Evaluate the left and right integrals separately. The full integral converges only when <strong>both parts converge</strong>. If either part diverges, the full integral diverges.</p>
+          </div>
+
+          <div class="warning">
+            Do not try to cancel \(+∞\) and \(−∞\). Each half must have its own finite limit.
+          </div>
+        </section>
+
+        <section id="p-test">
+          <div class="section-head">
+            <div class="section-number">07</div>
+            <div>
+              <h2>The p-test shortcut</h2>
+              <p class="section-subtitle">A fast way to predict whether power integrals converge.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <table>
+              <thead>
+                <tr><th>Integral</th><th>Converges when</th><th>Diverges when</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>∫<sub>1</sub><sup>∞</sup> 1/x<sup>p</sup> dx</td>
+                  <td class="good">p &gt; 1</td>
+                  <td class="bad">p ≤ 1</td>
+                </tr>
+                <tr>
+                  <td>∫<sub>0</sub><sup>1</sup> 1/x<sup>p</sup> dx</td>
+                  <td class="good">p &lt; 1</td>
+                  <td class="bad">p ≥ 1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="type-grid">
+            <div class="type-card">
+              <b>Example: p = 2</b>
+              <p>∫<sub>1</sub><sup>∞</sup>1/x² dx converges because \(2&gt;1\).</p>
+            </div>
+            <div class="type-card">
+              <b>Example: p = 1</b>
+              <p>∫<sub>1</sub><sup>∞</sup>1/x dx diverges because \(1≤1\).</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="exam-method">
+          <div class="section-head">
+            <div class="section-number">08</div>
+            <div>
+              <h2>The Question 2 exam method</h2>
+              <p class="section-subtitle">Use these five steps every time.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <ol class="steps">
+              <li><strong>Identify</strong> why the integral is improper and which boundary is infinite.</li>
+              <li><strong>Replace</strong> \(∞\) or \(−∞\) with a variable and write the correct limit.</li>
+              <li><strong>Integrate</strong> the now-ordinary definite integral.</li>
+              <li><strong>Evaluate</strong> the limit carefully.</li>
+              <li><strong>State the conclusion:</strong> “converges to …” or “diverges.”</li>
+            </ol>
+          </div>
+
+          <div class="memory">
+            Your written solution should visibly contain: <strong>limit → antiderivative → boundary substitution → limit result → conclusion.</strong>
+          </div>
+        </section>
+
+        <section id="practice">
+          <div class="section-head">
+            <div class="section-number">09</div>
+            <div>
+              <h2>Practice questions</h2>
+              <p class="section-subtitle">Solve on paper first, including the limit notation. Then reveal the solution.</p>
+            </div>
+          </div>
+
+          <div class="practice">
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P1 · Right infinity</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">∫<sub>1</sub><sup>∞</sup> 1/x³ dx</div>
+              <div class="answer">
+                lim<sub>b→∞</sub>[−1/(2x²)]<sub>1</sub><sup>b</sup>
+                = lim<sub>b→∞</sub>(−1/(2b²)+1/2).
+                <span class="final converges">Converges to 1/2.</span>
+              </div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P2 · p = 1</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">∫<sub>1</sub><sup>∞</sup> 1/x dx</div>
+              <div class="answer">
+                lim<sub>b→∞</sub>[ln x]<sub>1</sub><sup>b</sup> = lim<sub>b→∞</sub>ln b = ∞.
+                <span class="final diverges">Diverges.</span>
+              </div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P3 · Exponential decay</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">∫<sub>0</sub><sup>∞</sup> e<sup>−x</sup> dx</div>
+              <div class="answer">
+                lim<sub>b→∞</sub>[−e<sup>−x</sup>]<sub>0</sub><sup>b</sup>
+                = lim<sub>b→∞</sub>(1−e<sup>−b</sup>).
+                <span class="final converges">Converges to 1.</span>
+              </div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P4 · Left infinity</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">∫<sub>−∞</sub><sup>0</sup> e<sup>2x</sup> dx</div>
+              <div class="answer">
+                lim<sub>a→−∞</sub>[e<sup>2x</sup>/2]<sub>a</sub><sup>0</sup>
+                = lim<sub>a→−∞</sub>(1/2−e<sup>2a</sup>/2).
+                <span class="final converges">Converges to 1/2.</span>
+              </div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P5 · Growing function</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">∫<sub>0</sub><sup>∞</sup> x dx</div>
+              <div class="answer">
+                lim<sub>b→∞</sub>[x²/2]<sub>0</sub><sup>b</sup>
+                = lim<sub>b→∞</sub>b²/2 = ∞.
+                <span class="final diverges">Diverges.</span>
+              </div>
+            </div>
+
+            <div class="problem">
+              <div class="problem-top"><span class="problem-number">P6 · Coefficient</span><button class="reveal">Reveal solution</button></div>
+              <div class="problem-math">∫<sub>2</sub><sup>∞</sup> 4/x² dx</div>
+              <div class="answer">
+                lim<sub>b→∞</sub>[−4/x]<sub>2</sub><sup>b</sup>
+                = lim<sub>b→∞</sub>(−4/b+2).
+                <span class="final converges">Converges to 2.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="ready">
+          <div class="section-head">
+            <div class="section-number">✓</div>
+            <div>
+              <h2>Question 2 readiness check</h2>
+              <p class="section-subtitle">Your checked items are saved automatically in this browser.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>I can explain why an integral is improper.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I know that infinity is not a number.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can replace an infinite upper boundary with \(b→∞\).</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can replace an infinite lower boundary with \(a→−∞\).</span></label>
+              <label class="check-row"><input type="checkbox"><span>I understand convergent versus divergent.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I remember the p-test for \([1,∞)\).</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can split an integral from \(−∞\) to \(∞\).</span></label>
+              <label class="check-row"><input type="checkbox"><span>I always state the final convergence conclusion.</span></label>
+              <label class="check-row"><input type="checkbox"><span>I can solve all six practice questions without revealing the answers.</span></label>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          Question 2 · Improper Integrals ·
+          <a href="lecture-11-improper-integrals.pdf">Lecture 11, Section 7.4</a>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.querySelectorAll(".reveal").forEach(button => {
+      button.addEventListener("click", () => {
+        const answer = button.closest(".problem").querySelector(".answer");
+        const open = answer.classList.toggle("show");
+        button.textContent = open ? "Hide solution" : "Reveal solution";
+      });
+    });
+
+    const links = [...document.querySelectorAll("nav a")];
+    const sections = [...document.querySelectorAll("section[id]")];
+
+    const observer = new IntersectionObserver(entries => {
+      const current = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!current) return;
+      links.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${current.target.id}`);
+      });
+    }, { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.15, 0.5] });
+
+    sections.forEach(section => observer.observe(section));
+
+    const checks = [...document.querySelectorAll(".check-row input")];
+    const storageKey = "question-2-improper-integrals-readiness";
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      if (Array.isArray(saved)) {
+        checks.forEach((box, index) => box.checked = Boolean(saved[index]));
+      }
+    } catch (_) {
+      localStorage.removeItem(storageKey);
+    }
+
+    checks.forEach(box => {
+      box.addEventListener("change", () => {
+        localStorage.setItem(storageKey, JSON.stringify(checks.map(item => item.checked)));
+      });
+    });
+  </script>
+</body>
+</html>
